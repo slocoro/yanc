@@ -45,9 +45,10 @@ local get_repo_info = function()
   local git_url = run_command({ "git", "remote", "get-url", "origin" }):gsub("\n", "")
   print(git_url)
   -- parse url
-  if git_url:find("https//:") then
+  if git_url:find("https://") then
     local owner = git_url:match("github.com/([^/]+)")
     local repo = git_url:match("github.com/[^/]+/([^/]+)")
+    print(owner, repo)
     return { owner, repo }
   end
   return { nil, nil }
@@ -68,7 +69,9 @@ print('sha: ' .. get_sha())
 print('git root: ' .. get_git_root())
 print('line number: ' .. vim.fn.line('.'))
 print('file name: ' .. get_filename(get_filepath(), get_git_root()))
-print('git repo info: ' .. get_repo_info())
+local repo_info = get_repo_info()
+print('git repo info: ' .. repo_info[1])
+print('git repo info: ' .. repo_info[2])
 
 print(run_command({ "git", "rev-parse", "--show-toplevel" }))
 M.get_permalink = function()
@@ -76,8 +79,9 @@ M.get_permalink = function()
   local protocol = 'https://'
   -- this could be controlled by env variable (or setting from setup)
   local domain = 'github.com'
-  local owner = ''
-  local repo = ''
+  local repo_info = get_repo_info()
+  local owner = repo_info[1]
+  local repo = repo_info[2]
   local sha = get_sha()
   local git_root = get_git_root()
   local filepath = get_filepath()
@@ -91,5 +95,23 @@ M.get_permalink = function()
 end
 
 print(M.get_permalink())
+
+M.setup = function(opts)
+  opts = opts or {}
+
+  -- Define a command
+  vim.api.nvim_create_user_command(
+    'RemoteLink',
+    function()
+      local permalink = M.get_permalink()
+      -- copy variable to unnamedplus register
+      vim.fn.setreg('+', permalink)
+      return M.get_permalink()
+    end,
+    { desc = 'Run MyPluginCommand' }
+  )
+end
+
+M.setup()
 
 return M
