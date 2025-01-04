@@ -55,23 +55,25 @@ local get_repo_info = function()
 end
 
 local get_filename = function(filepath, git_root)
-  -- Derives filename from filepath and git root.
+  -- Derives filename from filepath and git root. removes from final path as root
+  -- can be different than the repo name (e.g. git clone into a specific dir)
   -- NOTE: Had issues with the matching because git_root contained \n character
   -- NOTE: Can't get the file path relative to the git root with lua match
   -- print(filepath)
   -- print(git_root)
   -- print(filepath:match(".*(nvim.*)"))
-  return filepath:match(".*(" .. git_root .. ".*)")
+  print("^" .. git_root .. "/")
+  return filepath:match(".*(" .. git_root .. ".*)"):gsub("^" .. git_root .. "/", "")
 end
 
 -- debug
--- print('sha: ' .. get_sha())
--- print('git root: ' .. get_git_root())
--- print('line number: ' .. vim.fn.line('.'))
--- print('file name: ' .. get_filename(get_filepath(), get_git_root()))
--- local repo_info = get_repo_info()
--- print('git repo info: ' .. repo_info[1])
--- print('git repo info: ' .. repo_info[2])
+print('sha: ' .. get_sha())
+print('git root: ' .. get_git_root())
+print('line number: ' .. vim.fn.line('.'))
+print('file name: ' .. get_filename(get_filepath(), get_git_root()))
+local repo_info = get_repo_info()
+print('git repo info: ' .. repo_info[1])
+print('git repo info: ' .. repo_info[2])
 
 print(run_command({ "git", "rev-parse", "--show-toplevel" }))
 M.get_permalink = function()
