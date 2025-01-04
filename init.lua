@@ -10,6 +10,9 @@ k.set("v", "<space><space>x", ":lua<CR>")
 
 k.set("i", "jj", "<ESC>")
 
+-- Escape search mode, remaps <ESC> to sequence of keys+commands
+k.set("n", "<ESC>", "<ESC>:noh<CR>")
+
 -- highlight when yanking
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -28,15 +31,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- another test autocommand from the docs
 -- these are the types of commands plugins expose
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.c", "*.h", "*.lua" },
-  -- callback = function(ev)
-  --   print(string.format('event fired: %s', vim.inspect(ev)))
-  -- end
-  callback = function()
-    print('hellllllo')
-  end
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+--   -- callback = function(ev)
+--     --   print(string.format('event fired: %s', vim.inspect(ev)))
+--     -- end
+--     callback = function()
+--         print('hellllllo')
+--       end
+--     })
 
 require("config.lazy")
 require("config.options")

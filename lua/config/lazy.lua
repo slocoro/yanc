@@ -22,7 +22,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- debug new runtime path
-print(vim.inspect(vim.opt.rtp:get()))
+-- print(vim.inspect(vim.opt.rtp:get()))
 
 
 -- Setup lazy.nvim
@@ -30,23 +30,32 @@ print(vim.inspect(vim.opt.rtp:get()))
 -- "lazy" and look for a file called "init.lua" and run it
 require("lazy").setup({
   spec = {
-    -- {
-    -- 	"folke/tokyonight.nvim", config = function() vim.cmd.colorscheme "tokyonight" end
-    -- },
     {
-      'sainnhe/gruvbox-material',
-      lazy = false,
-      priority = 1000,
-      config = function()
-        -- Optionally configure and load the colorscheme
-        -- directly inside the plugin declaration.
-        -- (remember, lazy "installs" the plugin (i.e. downloads the code
-        -- it doesn't actually set the color theme which is why it's set
-        -- in the config function)
-        vim.g.gruvbox_material_enable_italic = true
-        vim.cmd.colorscheme('gruvbox-material')
-      end
+      "folke/tokyonight.nvim", config = function() vim.cmd.colorscheme("tokyonight") end, lazy = false
     },
+    -- {
+    --   'sainnhe/gruvbox-material',
+    --   lazy = false,
+    --   priority = 1000,
+    --   config = function()
+    --     -- Optionally configure and load the colorscheme
+    --     -- directly inside the plugin declaration.
+    --     -- (remember, lazy "installs" the plugin (i.e. downloads the code
+    --     -- it doesn't actually set the color theme which is why it's set
+    --     -- in the config function)
+    --     vim.g.gruvbox_material_enable_italic = true
+    --     vim.cmd.colorscheme('gruvbox-material')
+    --   end
+    -- },
+    -- {
+    --   "catppuccin/nvim",
+    --   lazy = false,
+    --   name = "catppuccin",
+    --   priority = 1000,
+    --   config = function()
+    --     vim.cmd.colorscheme('catppuccin-frappe')
+    --   end
+    -- },
     -- import your plugins
     -- this needs to match the folder structure you use to organise
     -- your plugins, in this case lua/congig/plugins

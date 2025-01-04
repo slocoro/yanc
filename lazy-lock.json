@@ -1,5 +1,5 @@
 {
-  "gruvbox-material": { "branch": "master", "commit": "055aefde5fd49018f3a858bca7b529bc2e08c02b" },
+  "catppuccin": { "branch": "main", "commit": "f67b886d65a029f12ffa298701fb8f1efd89295d" },
   "lazy.nvim": { "branch": "main", "commit": "7e6c863bc7563efbdd757a310d17ebc95166cef3" },
   "lazydev.nvim": { "branch": "main", "commit": "8620f82ee3f59ff2187647167b6b47387a13a018" },
   "mini.nvim": { "branch": "main", "commit": "2011aff270bcd3e1f3ad088253ace2d574967bed" },
