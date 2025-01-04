@@ -1,10 +1,10 @@
 -- convention
 local M = {}
 
-print("hello from gitpermalink module")
+-- print("hello from gitpermalink module")
 
 -- get line number
-print(vim.fn.line('.'))
+-- print(vim.fn.line('.'))
 
 -- permalink generated from Zed
 -- https://github.com/python/cpython/blob/fcc0a377cfc2fe6683443745739d3b16224d884d/Python/getcompiler.c#L15
@@ -43,12 +43,12 @@ end
 
 local get_repo_info = function()
   local git_url = run_command({ "git", "remote", "get-url", "origin" }):gsub("\n", "")
-  print(git_url)
+  -- print(git_url)
   -- parse url
   if git_url:find("https://") then
     local owner = git_url:match("github.com/([^/]+)")
     local repo = git_url:match("github.com/[^/]+/([^/]+)")
-    print(owner, repo)
+    -- print(owner, repo)
     return { owner, repo }
   end
   return { nil, nil }
@@ -65,13 +65,13 @@ local get_filename = function(filepath, git_root)
 end
 
 -- debug
-print('sha: ' .. get_sha())
-print('git root: ' .. get_git_root())
-print('line number: ' .. vim.fn.line('.'))
-print('file name: ' .. get_filename(get_filepath(), get_git_root()))
-local repo_info = get_repo_info()
-print('git repo info: ' .. repo_info[1])
-print('git repo info: ' .. repo_info[2])
+-- print('sha: ' .. get_sha())
+-- print('git root: ' .. get_git_root())
+-- print('line number: ' .. vim.fn.line('.'))
+-- print('file name: ' .. get_filename(get_filepath(), get_git_root()))
+-- local repo_info = get_repo_info()
+-- print('git repo info: ' .. repo_info[1])
+-- print('git repo info: ' .. repo_info[2])
 
 print(run_command({ "git", "rev-parse", "--show-toplevel" }))
 M.get_permalink = function()
