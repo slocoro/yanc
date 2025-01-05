@@ -24,6 +24,9 @@ vim.opt.rtp:prepend(lazypath)
 -- debug new runtime path
 -- print(vim.inspect(vim.opt.rtp:get()))
 
+-- leader needs to be set before loading lazy
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Setup lazy.nvim
 -- when lua encounters a "require" it searches the runtime path for a directory called

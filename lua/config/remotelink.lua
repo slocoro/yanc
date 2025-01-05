@@ -1,11 +1,6 @@
 -- convention
 local M = {}
 
--- print("hello from gitremotelink module")
-
--- get line number
--- print(vim.fn.line('.'))
-
 -- remotelink generated from Zed
 -- https://github.com/python/cpython/blob/fcc0a377cfc2fe6683443745739d3b16224d884d/Python/getcompiler.c#L15
 -- permaling generated from VScode
@@ -15,16 +10,23 @@ local M = {}
 -- git@github.je-labs.com:customer-data-science/customer-deduping.git
 -- https://github.com/python/cpython.git
 
--- flow of generating remotelink
--- 1. get line number (or line range)
--- 2. get git url and blob number? and anything else
--- 3. print to console
--- 4. copy to clipbaord
--- 5. make money!!!!
---
+M.opts = {
+  debug = false,
+  domains = {
+    ['default'] = 'github.com',
+    ['jet'] = 'github.je-labs.com'
+  }
+}
 
 local run_command = function(cmd)
   return vim.fn.system(cmd)
+end
+
+local escape_magic = function(pattern)
+  -- this escapes magic characters (^$()%.[]*+-?) so the string can be used in a pattern
+  -- (e.g. :match, :gsub, ...)
+  -- https://stackoverflow.com/questions/70495415/lua-variable-in-pattern-match-with-special-characters
+  return (pattern:gsub("%W", "%%%1"))
 end
 
 local get_sha = function()
@@ -43,15 +45,21 @@ end
 
 local get_repo_info = function()
   local git_url = run_command({ "git", "remote", "get-url", "origin" }):gsub("\n", "")
-  -- print(git_url)
   -- parse url
   if git_url:find("https://") then
-    local owner = git_url:match("github.com/([^/]+)")
-    local repo = git_url:match("github.com/[^/]+/([^/]+)"):gsub(".git", "")
-    -- print(owner, repo)
-    return { owner, repo }
+    local domain = M.opts.domains['default']
+    -- match returns the substring in the capture group () not the entire matched string
+    local owner = git_url:match(domain .. "/([^/]+)")
+    local repo = git_url:match(domain .. "/[^/]+/([^/]+)"):gsub(".git", "")
+    return { domain, owner, repo }
   end
-  return { nil, nil }
+  if git_url:find("git@") then
+    local domain = M.opts.domains['jet']
+    local owner = git_url:match(escape_magic(domain) .. ":([^/]+)")
+    local repo = git_url:match(escape_magic(domain) .. ":[^/]+/([^/]+)"):gsub(".git", "")
+    return { domain, owner, repo }
+  end
+  return { nil, nil, nil }
 end
 
 local get_filename = function(filepath, git_root)
@@ -59,32 +67,17 @@ local get_filename = function(filepath, git_root)
   -- can be different than the repo name (e.g. git clone into a specific dir)
   -- NOTE: Had issues with the matching because git_root contained \n character
   -- NOTE: Can't get the file path relative to the git root with lua match
-  -- print(filepath)
-  -- print(git_root)
-  -- print(filepath:match(".*(nvim.*)"))
-  -- print("^" .. git_root .. "/")
-  return filepath:match(".*(" .. git_root .. ".*)"):gsub("^" .. git_root .. "/", "")
+  return filepath:match(".*(" .. escape_magic(git_root) .. ".*)"):gsub("^" .. escape_magic(git_root) .. "/", "")
 end
-
--- debug
--- print('sha: ' .. get_sha())
--- print('git root: ' .. get_git_root())
--- print('line number: ' .. vim.fn.line('.'))
--- print('file name: ' .. get_filename(get_filepath(), get_git_root()))
--- local repo_info = get_repo_info()
--- print('git repo info: ' .. repo_info[1])
--- print('git repo info: ' .. repo_info[2])
---
--- print(run_command({ "git", "rev-parse", "--show-toplevel" }))
 
 M.get_remotelink = function()
   local line_number = vim.fn.line('.')
   local protocol = 'https://'
   -- this could be controlled by env variable (or setting from setup)
-  local domain = 'github.com'
   local repo_info = get_repo_info()
-  local owner = repo_info[1]
-  local repo = repo_info[2]
+  local domain = repo_info[1]
+  local owner = repo_info[2]
+  local repo = repo_info[3]
   local sha = get_sha()
   local git_root = get_git_root()
   local filepath = get_filepath()
@@ -97,18 +90,32 @@ M.get_remotelink = function()
   return remotelink
 end
 
--- print(M.get_remotelink())
+M.setup = function()
+  local opts = M.opts or {}
 
-M.setup = function(opts)
-  opts = opts or {}
+  if opts.debug == true then
+    -- debug
+    print('--------------------')
+    print('Start debug:')
+    print('sha: ' .. get_sha())
+    print('git root: ' .. get_git_root())
+    print('line number: ' .. vim.fn.line('.'))
+    print('file name: ' .. get_filename(get_filepath(), get_git_root()))
+    local repo_info = get_repo_info()
+    print('git repo info: ' .. repo_info[1])
+    print('git repo info: ' .. repo_info[2])
+    print('End debug.')
+    print('--------------------')
+  end
 
-  -- Define a command
+  -- Define command
   vim.api.nvim_create_user_command(
     'RemoteLink',
     function()
       local remotelink = M.get_remotelink()
       -- copy variable to unnamedplus register
       vim.fn.setreg('+', remotelink)
+      vim.print('Created remote link: ' .. remotelink)
       return M.get_remotelink()
     end,
     { desc = 'Run MyPluginCommand' }

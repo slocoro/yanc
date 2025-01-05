@@ -10,10 +10,6 @@ vim.o.guicursor =
 -- this works for a bit but seems to get overwritten
 -- vim.cmd [[hi @function.builtin.lua guifg=yellow]]
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 
