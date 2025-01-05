@@ -59,6 +59,23 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then
+            vim.cmd.normal({ ']c', bang = true })
+          else
+            gitsigns.nav_hunk('next')
+          end
+        end)
+
+        map('n', '[c', function()
+          if vim.wo.diff then
+            vim.cmd.normal({ '[c', bang = true })
+          else
+            gitsigns.nav_hunk('prev')
+          end
+        end)
+
         map('n', '<leader>hp', gitsigns.preview_hunk)
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
       end
