@@ -29,7 +29,7 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if not client then return end
           -- debug
-          print('ID of client attached to LSP: ' .. args.data.client_id)
+          -- print('ID of client attached to LSP: ' .. args.data.client_id)
           if client.supports_method('textDocument/formatting') then
             -- or use this condition that checks what file type the current buffer has
             -- if vim.bo.filetype == "lua" then
