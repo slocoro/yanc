@@ -14,13 +14,26 @@ return {
           },
         },
       },
+      {
+        "saghen/blink.cmp"
+      },
     },
-    config = function()
-      require("lspconfig").lua_ls.setup {}
+    opts = {
+      servers = {
+        lua_ls = {},
+        pyright = {},
+      }
+    },
 
-      -- could format through a command but might be nicer to do this
-      -- automatically
-      -- vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end)
+    config = function(_, opts)
+      local lspconfig = require('lspconfig')
+      -- pass config to each lsp
+      for server, config in pairs(opts.servers) do
+        -- passing config.capabilities to blink.cmp merges with the capabilities in your
+        -- `opts[server].capabilities, if you've defined it
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
       vim.api.nvim_create_autocmd('LspAttach', {
         -- this autocommand runs after every LspAttach event inside Neovim
         -- callback function receives one arg, "event-data" which contains
@@ -29,7 +42,7 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if not client then return end
           -- debug
-          -- print('ID of client attached to LSP: ' .. args.data.client_id)
+          print('ID of client attached to LSP: ' .. args.data.client_id)
           if client.supports_method('textDocument/formatting') then
             -- or use this condition that checks what file type the current buffer has
             -- if vim.bo.filetype == "lua" then
@@ -47,5 +60,40 @@ return {
           end
         end,
       })
-    end,
+    end
+
+    -- config = function()
+    --   require("lspconfig").lua_ls.setup {}
+    --
+    -- could format through a command but might be nicer to do this
+    -- automatically
+    -- vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end)
+    -- vim.api.nvim_create_autocmd('LspAttach', {
+    --   -- this autocommand runs after every LspAttach event inside Neovim
+    --   -- callback function receives one arg, "event-data" which contains
+    --   -- data about the event
+    --   callback = function(args)
+    --     local client = vim.lsp.get_client_by_id(args.data.client_id)
+    --     if not client then return end
+    --     -- debug
+    --     -- print('ID of client attached to LSP: ' .. args.data.client_id)
+    --     if client.supports_method('textDocument/formatting') then
+    --       -- or use this condition that checks what file type the current buffer has
+    --       -- if vim.bo.filetype == "lua" then
+    --       -- format current buffer on save (just before we write a buffer)
+    --       -- only listen to those events inside this current buffer
+    --       -- (that's why we use "buffer = args.buf")
+    --       vim.api.nvim_create_autocmd('BufWritePre', {
+    --         buffer = args.buf,
+    --         -- not passing "args" to function below because it's available
+    --         -- in the scope of the enclosing function
+    --         callback = function()
+    --           vim.lsp.buf.format({ bufbr = args.buf, id = client.id })
+    --         end,
+    --       })
+    --     end
+    --   end,
+    -- })
+    --   config
+    -- end,
   } }

@@ -42,4 +42,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 require("config.lazy")
 require("config.options")
-require("config.remotelink")
+require("config.remotelink").setup()

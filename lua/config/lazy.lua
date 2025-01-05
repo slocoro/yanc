@@ -34,7 +34,10 @@ vim.g.maplocalleader = ' '
 require("lazy").setup({
   spec = {
     {
-      "folke/tokyonight.nvim", config = function() vim.cmd.colorscheme("tokyonight") end, lazy = false
+      "folke/tokyonight.nvim",
+      config = function() vim.cmd.colorscheme("tokyonight") end,
+      lazy = false,
+      priority = 1000
     },
     -- {
     --   'sainnhe/gruvbox-material',
