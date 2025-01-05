@@ -1,12 +1,12 @@
 -- convention
 local M = {}
 
--- print("hello from gitpermalink module")
+-- print("hello from gitremotelink module")
 
 -- get line number
 -- print(vim.fn.line('.'))
 
--- permalink generated from Zed
+-- remotelink generated from Zed
 -- https://github.com/python/cpython/blob/fcc0a377cfc2fe6683443745739d3b16224d884d/Python/getcompiler.c#L15
 -- permaling generated from VScode
 -- https://github.je-labs.com/customer-data-science/customer-deduping/blob/54905b5bc2924a6004ea12844bcf35e8288be586/customer_deduping/components/bigquery.py#L17
@@ -15,7 +15,7 @@ local M = {}
 -- git@github.je-labs.com:customer-data-science/customer-deduping.git
 -- https://github.com/python/cpython.git
 
--- flow of generating permalink
+-- flow of generating remotelink
 -- 1. get line number (or line range)
 -- 2. get git url and blob number? and anything else
 -- 3. print to console
@@ -47,7 +47,7 @@ local get_repo_info = function()
   -- parse url
   if git_url:find("https://") then
     local owner = git_url:match("github.com/([^/]+)")
-    local repo = git_url:match("github.com/[^/]+/([^/]+)")
+    local repo = git_url:match("github.com/[^/]+/([^/]+)"):gsub(".git", "")
     -- print(owner, repo)
     return { owner, repo }
   end
@@ -62,21 +62,22 @@ local get_filename = function(filepath, git_root)
   -- print(filepath)
   -- print(git_root)
   -- print(filepath:match(".*(nvim.*)"))
-  print("^" .. git_root .. "/")
+  -- print("^" .. git_root .. "/")
   return filepath:match(".*(" .. git_root .. ".*)"):gsub("^" .. git_root .. "/", "")
 end
 
 -- debug
-print('sha: ' .. get_sha())
-print('git root: ' .. get_git_root())
-print('line number: ' .. vim.fn.line('.'))
-print('file name: ' .. get_filename(get_filepath(), get_git_root()))
-local repo_info = get_repo_info()
-print('git repo info: ' .. repo_info[1])
-print('git repo info: ' .. repo_info[2])
+-- print('sha: ' .. get_sha())
+-- print('git root: ' .. get_git_root())
+-- print('line number: ' .. vim.fn.line('.'))
+-- print('file name: ' .. get_filename(get_filepath(), get_git_root()))
+-- local repo_info = get_repo_info()
+-- print('git repo info: ' .. repo_info[1])
+-- print('git repo info: ' .. repo_info[2])
+--
+-- print(run_command({ "git", "rev-parse", "--show-toplevel" }))
 
-print(run_command({ "git", "rev-parse", "--show-toplevel" }))
-M.get_permalink = function()
+M.get_remotelink = function()
   local line_number = vim.fn.line('.')
   local protocol = 'https://'
   -- this could be controlled by env variable (or setting from setup)
@@ -90,13 +91,13 @@ M.get_permalink = function()
   local filename = get_filename(filepath, git_root)
 
 
-  local permalink = protocol ..
+  local remotelink = protocol ..
       domain .. '/' .. owner .. '/' .. repo .. '/blob/' .. sha .. '/' .. filename .. '#L' .. line_number
 
-  return permalink
+  return remotelink
 end
 
-print(M.get_permalink())
+-- print(M.get_remotelink())
 
 M.setup = function(opts)
   opts = opts or {}
@@ -105,10 +106,10 @@ M.setup = function(opts)
   vim.api.nvim_create_user_command(
     'RemoteLink',
     function()
-      local permalink = M.get_permalink()
+      local remotelink = M.get_remotelink()
       -- copy variable to unnamedplus register
-      vim.fn.setreg('+', permalink)
-      return M.get_permalink()
+      vim.fn.setreg('+', remotelink)
+      return M.get_remotelink()
     end,
     { desc = 'Run MyPluginCommand' }
   )
