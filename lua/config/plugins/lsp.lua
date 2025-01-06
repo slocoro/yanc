@@ -22,6 +22,7 @@ return {
       servers = {
         lua_ls = {},
         pyright = {},
+        terraformls = {},
       }
     },
 
@@ -42,7 +43,23 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if not client then return end
           -- debug
-          print('ID of client attached to LSP: ' .. args.data.client_id)
+          -- print('ID of client attached to LSP: ' .. args.data.client_id)
+
+          local bufopts = { noremap = true, silent = true, buffer = args.buf }
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+            vim.tbl_extend("force", bufopts, { desc = "Go to Declaration" }))
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+            vim.tbl_extend("force", bufopts, { desc = "Go to Definition" }))
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+          -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+          -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, vim.tbl_extend("force", bufopts, { desc = "LSP rename" }))
+          vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+
           if client.supports_method('textDocument/formatting') then
             -- or use this condition that checks what file type the current buffer has
             -- if vim.bo.filetype == "lua" then
