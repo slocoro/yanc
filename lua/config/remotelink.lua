@@ -1,3 +1,8 @@
+-- TODO:
+-- add error handling and testing
+-- add annotations
+-- make config handling nicer and allow passing of config through setup (config should be merged with defaults)
+
 -- convention
 local M = {}
 
@@ -66,7 +71,6 @@ local get_filename = function(filepath, git_root)
   -- Derives filename from filepath and git root. removes from final path as root
   -- can be different than the repo name (e.g. git clone into a specific dir)
   -- NOTE: Had issues with the matching because git_root contained \n character
-  -- NOTE: Can't get the file path relative to the git root with lua match
   return filepath:match(".*(" .. escape_magic(git_root) .. ".*)"):gsub("^" .. escape_magic(git_root) .. "/", "")
 end
 
