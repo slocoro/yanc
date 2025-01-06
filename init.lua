@@ -4,8 +4,8 @@ MyTestFunc = function() print("hello from MyTestFunc") end
 
 -- KEYMAPS
 local k = vim.keymap
-k.set("n", "<space><space>x", "<cmd>source %<CR>")
-k.set("n", "<space>x", ":.lua<CR>")
+k.set("n", "<space><space>x", "<cmd>source %<CR>", { desc = "Source file" })
+k.set("n", "<space>x", ":.lua<CR>", { desc = "Execute current line" })
 k.set("v", "<space><space>x", ":lua<CR>")
 
 k.set("i", "jj", "<ESC>")
