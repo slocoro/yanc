@@ -33,11 +33,20 @@ vim.g.maplocalleader = ' '
 -- "lazy" and look for a file called "init.lua" and run it
 require("lazy").setup({
   spec = {
+    -- {
+    --   "folke/tokyonight.nvim",
+    --   config = function() vim.cmd.colorscheme("tokyonight") end,
+    --   lazy = false,
+    --   priority = 1000
+    -- },
     {
-      "folke/tokyonight.nvim",
-      config = function() vim.cmd.colorscheme("tokyonight") end,
+      "navarasu/onedark.nvim",
+      config = function()
+        require("onedark").setup({ style = "darker" })
+        vim.cmd.colorscheme("onedark")
+      end,
       lazy = false,
-      priority = 1000
+      priority = 1000,
     },
     -- {
     --   'sainnhe/gruvbox-material',
