@@ -9,22 +9,30 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     config = function()
+      local theme = "ivy"
+
+      local ivy = require('telescope.themes').get_ivy({})
+
       require('telescope').setup({
-        pickers = {
-          find_files = {
-            theme = "ivy"
-          },
-          live_grep = {
-            theme = "ivy"
-          },
-          buffers = {
-            theme = "ivy"
-          },
-          help_tags = {
-            theme = "ivy"
-          },
-        }
+        defaults = ivy
       })
+
+      -- set individual themes for pickers
+      -- pickers = {
+      --   find_files = {
+      --     theme = theme
+      --   },
+      --   live_grep = {
+      --     theme = theme
+      --   },
+      --   buffers = {
+      --     theme = theme
+      --   },
+      --   help_tags = {
+      --     theme = theme
+      --   },
+      -- }
+      -- })
 
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
