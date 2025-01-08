@@ -9,8 +9,6 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     config = function()
-      local theme = "ivy"
-
       local ivy = require('telescope.themes').get_ivy({})
 
       require('telescope').setup({
