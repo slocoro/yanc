@@ -52,15 +52,20 @@ return {
             vim.tbl_extend("force", bufopts, { desc = "Go to Definition" }))
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+          -- vim.keymap.set('n', 'go', require('telescope.builtin').lsp_type_definitions,
+          -- { desc = "Go to Symbols (outline)" })
+          -- ("go", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+            vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
           -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
           -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, vim.tbl_extend("force", bufopts, { desc = "LSP rename" }))
-          vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+          vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, vim.tbl_extend("force", bufopts, { desc = "LSP rename" }))
+          vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
+            vim.tbl_extend("force", bufopts, { desc = "LSP code action" }))
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 
-          if client.supports_method('textDocument/formatting') then
+          if client.supports_method('textDocument/formatting') and vim.bo.filetype == "lua" then
             -- or use this condition that checks what file type the current buffer has
             -- if vim.bo.filetype == "lua" then
             -- format current buffer on save (just before we write a buffer)
@@ -71,7 +76,12 @@ return {
               -- not passing "args" to function below because it's available
               -- in the scope of the enclosing function
               callback = function()
-                vim.lsp.buf.format({ bufbr = args.buf, id = client.id })
+                vim.lsp.buf.format({
+                  bufbr = args.buf,
+                  id = client.id,
+                  formatting_options = { insert_final_newline = true, }, -- doesn't work
+                  async = false
+                })
               end,
             })
           end
