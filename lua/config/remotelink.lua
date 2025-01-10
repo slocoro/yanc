@@ -18,9 +18,9 @@ local M = {}
 M.opts = {
   debug = false,
   domains = {
-    ['default'] = 'github.com',
-    ['jet'] = 'github.je-labs.com'
-  }
+    ["default"] = "github.com",
+    ["jet"] = "github.je-labs.com",
+  },
 }
 
 local run_command = function(cmd)
@@ -45,21 +45,21 @@ end
 
 local get_filepath = function()
   -- full file path
-  return vim.fn.expand('%:p')
+  return vim.fn.expand("%:p")
 end
 
 local get_repo_info = function()
   local git_url = run_command({ "git", "remote", "get-url", "origin" }):gsub("\n", "")
   -- parse url
   if git_url:find("https://") then
-    local domain = M.opts.domains['default']
+    local domain = M.opts.domains["default"]
     -- match returns the substring in the capture group () not the entire matched string
     local owner = git_url:match(domain .. "/([^/]+)")
     local repo = git_url:match(domain .. "/[^/]+/([^/]+)"):gsub(".git", "")
     return { domain, owner, repo }
   end
   if git_url:find("git@") then
-    local domain = M.opts.domains['jet']
+    local domain = M.opts.domains["jet"]
     local owner = git_url:match(escape_magic(domain) .. ":([^/]+)")
     local repo = git_url:match(escape_magic(domain) .. ":[^/]+/([^/]+)"):gsub(".git", "")
     return { domain, owner, repo }
@@ -75,8 +75,8 @@ local get_filename = function(filepath, git_root)
 end
 
 M.get_remotelink = function()
-  local line_number = vim.fn.line('.')
-  local protocol = 'https://'
+  local line_number = vim.fn.line(".")
+  local protocol = "https://"
   -- this could be controlled by env variable (or setting from setup)
   local repo_info = get_repo_info()
   local domain = repo_info[1]
@@ -87,9 +87,18 @@ M.get_remotelink = function()
   local filepath = get_filepath()
   local filename = get_filename(filepath, git_root)
 
-
-  local remotelink = protocol ..
-      domain .. '/' .. owner .. '/' .. repo .. '/blob/' .. sha .. '/' .. filename .. '#L' .. line_number
+  local remotelink = protocol
+      .. domain
+      .. "/"
+      .. owner
+      .. "/"
+      .. repo
+      .. "/blob/"
+      .. sha
+      .. "/"
+      .. filename
+      .. "#L"
+      .. line_number
 
   return remotelink
 end
@@ -99,31 +108,27 @@ M.setup = function()
 
   if opts.debug == true then
     -- debug
-    print('--------------------')
-    print('Start debug:')
-    print('sha: ' .. get_sha())
-    print('git root: ' .. get_git_root())
-    print('line number: ' .. vim.fn.line('.'))
-    print('file name: ' .. get_filename(get_filepath(), get_git_root()))
+    print("--------------------")
+    print("Start debug:")
+    print("sha: " .. get_sha())
+    print("git root: " .. get_git_root())
+    print("line number: " .. vim.fn.line("."))
+    print("file name: " .. get_filename(get_filepath(), get_git_root()))
     local repo_info = get_repo_info()
-    print('git repo info: ' .. repo_info[1])
-    print('git repo info: ' .. repo_info[2])
-    print('End debug.')
-    print('--------------------')
+    print("git repo info: " .. repo_info[1])
+    print("git repo info: " .. repo_info[2])
+    print("End debug.")
+    print("--------------------")
   end
 
   -- Define command
-  vim.api.nvim_create_user_command(
-    'RemoteLink',
-    function()
-      local remotelink = M.get_remotelink()
-      -- copy variable to unnamedplus register
-      vim.fn.setreg('+', remotelink)
-      vim.print('Created remote link: ' .. remotelink)
-      return M.get_remotelink()
-    end,
-    { desc = 'Run MyPluginCommand' }
-  )
+  vim.api.nvim_create_user_command("RemoteLink", function()
+    local remotelink = M.get_remotelink()
+    -- copy variable to unnamedplus register
+    vim.fn.setreg("+", remotelink)
+    vim.print("Created remote link: " .. remotelink)
+    return M.get_remotelink()
+  end, { desc = "Run MyPluginCommand" })
 end
 
 return M
