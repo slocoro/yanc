@@ -3,7 +3,9 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
-    -- or                              , branch = '0.1.x',
+    -- or
+    -- branch = '0.1.x',
+    -- cmd = "Telescope", -- load on command, not useful in my case as I often use telescope as soon as I enter nvim
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
