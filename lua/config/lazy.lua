@@ -25,13 +25,18 @@ vim.opt.rtp:prepend(lazypath)
 -- print(vim.inspect(vim.opt.rtp:get()))
 
 -- leader needs to be set before loading lazy
-vim.g.mapleader = ','
-vim.g.maplocalleader = ','
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
 -- Setup lazy.nvim
 -- when lua encounters a "require" it searches the runtime path for a directory called
 -- "lazy" and look for a file called "init.lua" and run it
 require("lazy").setup({
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = true,
+    notify = false, -- get a notification when changes are found
+  },
   spec = {
     -- {
     --   "folke/tokyonight.nvim",
@@ -42,7 +47,7 @@ require("lazy").setup({
     {
       "navarasu/onedark.nvim",
       config = function()
-        require("onedark").setup({ style = "darker" })
+        require("onedark").setup({ style = "dark" })
         vim.cmd.colorscheme("onedark")
       end,
       lazy = false,
