@@ -2,7 +2,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-
       {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -23,6 +22,7 @@ return {
         lua_ls = {},
         pyright = {},
         terraformls = {},
+        ts_ls = {},
       },
     },
 
@@ -57,13 +57,15 @@ return {
           vim.keymap.set(
             "n",
             "gd",
-            vim.lsp.buf.definition,
+            -- vim.lsp.buf.definition,
+            require("telescope.builtin").lsp_definitions,
             vim.tbl_extend("force", bufopts, { desc = "Go to Definition" })
           )
           vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-          -- vim.keymap.set('n', 'go', require('telescope.builtin').lsp_type_definitions,
-          -- { desc = "Go to Symbols (outline)" })
+          vim.keymap.set("n", "go", function()
+            require("telescope.builtin").lsp_document_symbols({ ignore_symbols = "variable" })
+          end, { desc = "View Document Symbols (outline)" })
           -- ("go", require("telescope.builtin").lsp_type_definitions, "Type Definition")
           vim.keymap.set(
             "n",
@@ -86,65 +88,36 @@ return {
             vim.lsp.buf.code_action,
             vim.tbl_extend("force", bufopts, { desc = "LSP code action" })
           )
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+          vim.keymap.set(
+            "n",
+            "gr",
+            require("telescope.builtin").lsp_references,
+            -- vim.lsp.buf.references,
+            vim.tbl_extend("force", bufopts, { desc = "LSP references" })
+          )
 
-          if client.supports_method("textDocument/formatting") and vim.bo.filetype == "lua" then
-            -- or use this condition that checks what file type the current buffer has
-            -- if vim.bo.filetype == "lua" then
-            -- format current buffer on save (just before we write a buffer)
-            -- only listen to those events inside this current buffer
-            -- (that's why we use "buffer = args.buf")
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              buffer = args.buf,
-              -- not passing "args" to function below because it's available
-              -- in the scope of the enclosing function
-              callback = function()
-                vim.lsp.buf.format({
-                  bufbr = args.buf,
-                  id = client.id,
-                  formatting_options = { insert_final_newline = true }, -- doesn't work
-                  async = false,
-                })
-              end,
-            })
-          end
+          -- if client.supports_method("textDocument/formatting") and vim.bo.filetype == "lua" then
+          --   -- or use this condition that checks what file type the current buffer has
+          --   -- if vim.bo.filetype == "lua" then
+          --   -- format current buffer on save (just before we write a buffer)
+          --   -- only listen to those events inside this current buffer
+          --   -- (that's why we use "buffer = args.buf")
+          --   vim.api.nvim_create_autocmd("BufWritePre", {
+          --     buffer = args.buf,
+          --     -- not passing "args" to function below because it's available
+          --     -- in the scope of the enclosing function
+          --     callback = function()
+          --       vim.lsp.buf.format({
+          --         bufbr = args.buf,
+          --         id = client.id,
+          --         formatting_options = { insert_final_newline = true }, -- doesn't work
+          --         async = false,
+          --       })
+          --     end,
+          --   })
+          -- end
         end,
       })
     end,
-
-    -- config = function()
-    --   require("lspconfig").lua_ls.setup {}
-    --
-    -- could format through a command but might be nicer to do this
-    -- automatically
-    -- vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end)
-    -- vim.api.nvim_create_autocmd('LspAttach', {
-    --   -- this autocommand runs after every LspAttach event inside Neovim
-    --   -- callback function receives one arg, "event-data" which contains
-    --   -- data about the event
-    --   callback = function(args)
-    --     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    --     if not client then return end
-    --     -- debug
-    --     -- print('ID of client attached to LSP: ' .. args.data.client_id)
-    --     if client.supports_method('textDocument/formatting') then
-    --       -- or use this condition that checks what file type the current buffer has
-    --       -- if vim.bo.filetype == "lua" then
-    --       -- format current buffer on save (just before we write a buffer)
-    --       -- only listen to those events inside this current buffer
-    --       -- (that's why we use "buffer = args.buf")
-    --       vim.api.nvim_create_autocmd('BufWritePre', {
-    --         buffer = args.buf,
-    --         -- not passing "args" to function below because it's available
-    --         -- in the scope of the enclosing function
-    --         callback = function()
-    --           vim.lsp.buf.format({ bufbr = args.buf, id = client.id })
-    --         end,
-    --       })
-    --     end
-    --   end,
-    -- })
-    --   config
-    -- end,
   },
 }
