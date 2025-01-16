@@ -23,6 +23,7 @@ return {
         pyright = {},
         terraformls = {},
         ts_ls = {},
+        dockerls = {},
       },
     },
 
