@@ -1,16 +1,25 @@
 -- test function
 -- can be run using :lua MyTestFunc()
-MyTestFunc = function() print("hello from MyTestFunc") end
-
+MyTestFunc = function()
+  print("hello from MyTestFunc")
+end
 
 -- highlight when yanking
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
   callback = function()
     vim.highlight.on_yank()
   end,
 })
+
+-- to do add highlighting of cursor
+
+-- this makes Ghostty show the working dir as tab name
+if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
+  vim.opt.title = true
+  vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
+end
 
 -- test autocommand from docs
 -- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
