@@ -13,7 +13,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- to do add highlighting of cursor
+-- highlighting of cursor using lsp
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.lsp.buf.document_highlight()
+  end,
+})
+-- undo highlighting when moving cursor
+vim.api.nvim_create_autocmd("CursorMoved", {
+  callback = function()
+    vim.lsp.buf.clear_references()
+  end,
+})
 
 -- this makes Ghostty show the working dir as tab name
 if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
