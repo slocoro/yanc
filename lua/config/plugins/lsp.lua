@@ -24,6 +24,7 @@ return {
         terraformls = {},
         ts_ls = {},
         dockerls = {},
+        bashls = {},
       },
     },
 
