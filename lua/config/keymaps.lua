@@ -8,3 +8,7 @@ k.set("i", "jj", "<ESC>")
 
 -- Escape search mode, remaps <ESC> to sequence of keys+commands
 k.set("n", "<ESC>", "<ESC>:noh<CR>")
+
+-- quick fix list
+k.set("n", "[q", "<cmd>cprevious<CR>")
+k.set("n", "]q", "<cmd>cnext<CR>")
