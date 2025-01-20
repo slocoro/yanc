@@ -12,7 +12,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
+      { out, "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -38,21 +38,31 @@ require("lazy").setup({
     notify = false, -- get a notification when changes are found
   },
   spec = {
-    -- {
-    --   "folke/tokyonight.nvim",
-    --   config = function() vim.cmd.colorscheme("tokyonight") end,
-    --   lazy = false,
-    --   priority = 1000
-    -- },
     {
-      "navarasu/onedark.nvim",
+      "folke/tokyonight.nvim",
       config = function()
-        require("onedark").setup({ style = "dark" })
-        vim.cmd.colorscheme("onedark")
+        vim.cmd.colorscheme("tokyonight-moon")
       end,
       lazy = false,
       priority = 1000,
     },
+    -- {
+    --   "rebelot/kanagawa.nvim",
+    --   config = function()
+    --     vim.cmd.colorscheme("kanagawa-wave")
+    --   end,
+    --   lazy = false,
+    --   priority = 1000,
+    -- },
+    -- {
+    --   "navarasu/onedark.nvim",
+    --   config = function()
+    --     require("onedark").setup({ style = "dark" })
+    --     vim.cmd.colorscheme("onedark")
+    --   end,
+    --   lazy = false,
+    --   priority = 1000,
+    -- },
     -- {
     --   'sainnhe/gruvbox-material',
     --   lazy = false,
