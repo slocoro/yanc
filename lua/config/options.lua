@@ -66,7 +66,7 @@ vim.opt.colorcolumn = "88"
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- 999 keeps the cursor centered when scrolling up/down
-vim.opt.scrolloff = 999
+vim.opt.scrolloff = 10
 
 -- better colour support
 vim.opt.termguicolors = true
