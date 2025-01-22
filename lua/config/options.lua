@@ -15,10 +15,6 @@ vim.opt.relativenumber = true
 
 vim.opt.mouse = "a"
 
--- stop nvim from adding comment leader on newline after commented line
--- see :h fo-table for more info
-vim.opt_local.formatoptions:remove({ "r", "o", "c" })
-
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
