@@ -12,6 +12,7 @@ return {
     },
     config = function()
       local theme = require("telescope.themes").get_ivy({})
+      local actions = require("telescope.actions")
 
       require("telescope").setup({
         defaults = vim.tbl_extend("force", theme, {
@@ -31,7 +32,21 @@ return {
             "--glob=!**/.venv/**",
           },
         }),
-        -- },
+        pickers = {
+          buffers = {
+            mappings = {
+              -- delete buffer inside picker
+              -- https://github.com/adibhanna/nvim/blob/main/lua/plugins/telescope.lua#L340
+              -- https://github.com/nvim-telescope/telescope.nvim/issues/621
+              i = {
+                ["<c-d>"] = actions.delete_buffer,
+              },
+              n = {
+                ["<c-d>"] = actions.delete_buffer,
+              },
+            },
+          },
+        },
       })
 
       -- set individual themes for pickers
