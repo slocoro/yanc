@@ -12,3 +12,7 @@ k.set("n", "<ESC>", "<ESC>:noh<CR>")
 -- quick fix list
 k.set("n", "[q", "<cmd>cprevious<CR>")
 k.set("n", "]q", "<cmd>cnext<CR>")
+
+-- don't add entry to jumplist when using [ or ]
+k.set("n", "}", ":<C-u>execute 'keepjumps norm!' . v:count1 . '}'<CR>", { noremap = true, silent = true })
+k.set("n", "{", ":<C-u>execute 'keepjumps norm!' . v:count1 . '{'<CR>", { noremap = true, silent = true })
