@@ -77,6 +77,7 @@ return {
         end)
 
         map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Git: Preview hunk" })
+        map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Git: Reset hunk" })
         map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Git: Toggle line blame" })
       end,
     })
