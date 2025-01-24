@@ -1,5 +1,4 @@
 -- TODO:
--- add session handling
 -- improve time to open files (quite slow to open first py at the moment, subsequent ones are ok, could be because first file starts lsp?)
 
 -- test function
