@@ -27,7 +27,6 @@ return {
         bashls = {},
       },
     },
-
     config = function(_, opts)
       local lspconfig = require("lspconfig")
       -- pass config to each lsp
@@ -37,6 +36,11 @@ return {
         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
         lspconfig[server].setup(config)
       end
+
+      local toggle_diagnostics = function()
+        vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+      end
+
       vim.api.nvim_create_autocmd("LspAttach", {
         -- this autocommand runs after every LspAttach event inside Neovim
         -- callback function receives one arg, "event-data" which contains
@@ -98,6 +102,12 @@ return {
             vim.tbl_extend("force", bufopts, { desc = "LSP references" })
           )
 
+          vim.keymap.set(
+            "n",
+            "<leader>td",
+            toggle_diagnostics,
+            vim.tbl_extend("force", bufopts, { desc = "LSP [t]oggle [d]iagnostics" })
+          )
           -- if client.supports_method("textDocument/formatting") and vim.bo.filetype == "lua" then
           --   -- or use this condition that checks what file type the current buffer has
           --   -- if vim.bo.filetype == "lua" then
