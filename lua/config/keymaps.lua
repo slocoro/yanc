@@ -1,7 +1,7 @@
 -- KEYMAPS
 local k = vim.keymap
 k.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Source file" })
-k.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current line" })
+k.set("n", "<leader>x", ":.lua<CR>", { desc = "E[x]ecute current [l]ine" })
 k.set("v", "<leader><leader>x", ":lua<CR>")
 
 k.set("i", "jj", "<ESC>")

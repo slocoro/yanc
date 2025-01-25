@@ -72,13 +72,13 @@ return {
           -- hidden = true,
           find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
         })
-      end, { desc = "Telescope find files" })
+      end, { desc = "Telescope [f]ind [f]iles" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-      vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope recent files" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope [f]ind [b]uffers" })
+      vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope [f]ind [r]ecent files" })
 
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-      vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope key maps" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope [f]ind [h]elp tags" })
+      vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope [f]ind [k]eymaps" })
 
       vim.keymap.set("n", "<leader>en", function()
         -- local opts = require('telescope.themes').get_ivy({
