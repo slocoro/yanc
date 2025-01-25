@@ -28,6 +28,20 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+ToggleDarkMode = function()
+  local colorschemes = {
+    dark = "tokyonight-moon",
+    light = "tokyonight-day",
+  }
+  -- somehow when using vim.g.colors_name directly in the if statement it doesn't work
+  local current_colorscheme = vim.g.colors_name
+  if current_colorscheme == colorschemes.dark then
+    vim.cmd.colorscheme(colorschemes.light)
+  else
+    vim.cmd.colorscheme(colorschemes.dark)
+  end
+end
+
 -- Setup lazy.nvim
 -- when lua encounters a "require" it searches the runtime path for a directory called
 -- "lazy" and look for a file called "init.lua" and run it
@@ -42,6 +56,14 @@ require("lazy").setup({
       "folke/tokyonight.nvim",
       config = function()
         vim.cmd.colorscheme("tokyonight-moon")
+
+        local opts = { noremap = true, silent = true }
+        vim.keymap.set(
+          "n",
+          "<leader>tm",
+          ToggleDarkMode,
+          vim.tbl_extend("force", opts, { desc = "[t]oggle dark[m]ode" })
+        )
       end,
       lazy = false,
       priority = 1000,
