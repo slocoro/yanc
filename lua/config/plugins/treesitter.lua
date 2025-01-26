@@ -5,8 +5,19 @@ return {
     -- makes sure that when new queries get downloaded, the parsers get rebuilt
     build = ":TSUpdate",
     config = function()
-      require 'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python" },
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "html",
+          "css",
+        },
         auto_install = true,
         highlight = {
           enable = true,
@@ -23,7 +34,7 @@ return {
           end,
           additional_vim_regex_highlighting = false,
         },
-      }
+      })
     end,
-  }
+  },
 }

@@ -15,6 +15,8 @@ return {
       bash = { "shfmt", "shellcheck" },
       zsh = { "shfmt", "shellcheck" },
       sh = { "shfmt", "shellcheck" },
+      css = { "prettier" },
+      html = { "prettier" },
     },
     formatters = {
       shfmt = {
