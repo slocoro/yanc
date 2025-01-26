@@ -25,6 +25,7 @@ M.opts = {
 ---@param cmd table
 ---@return string
 local run_command = function(cmd)
+  -- TODO: refactor to use vim.system as preferred in docs
   return vim.fn.system(cmd)
 end
 
@@ -114,17 +115,17 @@ M.get_remotelink = function()
   local filename = get_filename(filepath, git_root)
 
   local remotelink = protocol
-      .. domain
-      .. "/"
-      .. owner
-      .. "/"
-      .. repo
-      .. "/blob/"
-      .. sha
-      .. "/"
-      .. filename
-      .. "#L"
-      .. line_number
+    .. domain
+    .. "/"
+    .. owner
+    .. "/"
+    .. repo
+    .. "/blob/"
+    .. sha
+    .. "/"
+    .. filename
+    .. "#L"
+    .. line_number
 
   return remotelink
 end
