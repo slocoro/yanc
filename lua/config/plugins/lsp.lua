@@ -26,6 +26,7 @@ return {
         dockerls = {},
         bashls = {},
         clangd = {},
+        html = {},
       },
     },
     config = function(_, opts)
