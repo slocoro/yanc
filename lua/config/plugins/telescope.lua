@@ -12,6 +12,7 @@ return {
     },
     config = function()
       local theme = require("telescope.themes").get_ivy({})
+      -- local theme = {}
       local actions = require("telescope.actions")
 
       require("telescope").setup({
@@ -74,6 +75,9 @@ return {
         })
       end, { desc = "Telescope [f]ind [f]iles" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+      vim.keymap.set("n", "<leader>fc", function()
+        builtin.git_files({ git_command = { "git", "ls-files", "-m" } })
+      end, { desc = "Telescope [f]ind [c]hanged files" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope [f]ind [b]uffers" })
       vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope [f]ind [r]ecent files" })
 
