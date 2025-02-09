@@ -72,4 +72,4 @@ vim.opt.scrolloff = 10
 vim.opt.termguicolors = true
 
 -- show tabline (easier to see what file you're in imo)
-vim.o.showtabline = 2
+-- vim.o.showtabline = 2
