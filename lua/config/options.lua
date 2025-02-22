@@ -71,5 +71,13 @@ vim.opt.scrolloff = 10
 -- better colour support
 vim.opt.termguicolors = true
 
--- show tabline (easier to see what file you're in imo)
--- vim.o.showtabline = 2
+-- for python to work correctly I think you need to
+-- have a virtual env available for neovim to use as
+-- a python provider for python neovim plugins
+-- create a venv in the neovim config root and pip install pynvim into it
+-- this dramatically improves the time it takes to open python files
+-- TODO: figure out how the lsp finds references to packages installed
+-- in a project venv if this venv is used
+-- 1 means enabled
+vim.g.loaded_python3_provider = 1
+vim.g.python3_host_prog = vim.fn.stdpath("config") .. "/.venv/bin/python"
