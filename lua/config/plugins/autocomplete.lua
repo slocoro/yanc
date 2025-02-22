@@ -4,15 +4,7 @@ return {
     -- optional: provides snippets for the snippet source
     dependencies = "rafamadriz/friendly-snippets",
     enabled = true,
-    -- couldn't get the below to run
-    -- installed manually using https://cmp.saghen.dev/configuration/fuzzy.html#prebuilt-binaries-default-on-a-release-tag
-    -- still getting an error message when opening nvim
-    --   -- use a release tag to download pre-built binaries
-    -- version = '*',
-    --   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo +nightly build --release',
-    --   -- If you use nix, you can build from source using latest nightly rust with:
-    --   -- build = 'nix run .#build-plugin'
+    version = "0.12.4",
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -33,10 +25,9 @@ return {
         nerd_font_variant = "mono",
       },
 
-      -- this fixes the download error on startup, downloaded the binary manually
       fuzzy = {
         prebuilt_binaries = {
-          download = false,
+          download = true,
         },
       },
       -- Default list of enabled providers defined so that you can extend it
