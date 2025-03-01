@@ -28,6 +28,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+-- TODO: make this work with onedark
 ToggleDarkMode = function()
   local colorschemes = {
     dark = "tokyonight-moon",
