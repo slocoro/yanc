@@ -28,7 +28,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
--- TODO: make this work with onedark
 ToggleDarkMode = function()
   local colorschemes = {
     dark = "tokyonight-moon",
@@ -53,22 +52,22 @@ require("lazy").setup({
     notify = false, -- get a notification when changes are found
   },
   spec = {
-    -- {
-    --   "folke/tokyonight.nvim",
-    --   config = function()
-    --     vim.cmd.colorscheme("tokyonight-moon")
-    --
-    --     local opts = { noremap = true, silent = true }
-    --     vim.keymap.set(
-    --       "n",
-    --       "<leader>tm",
-    --       ToggleDarkMode,
-    --       vim.tbl_extend("force", opts, { desc = "[t]oggle dark[m]ode" })
-    --     )
-    --   end,
-    --   lazy = false,
-    --   priority = 1000,
-    -- },
+    {
+      "folke/tokyonight.nvim",
+      config = function()
+        vim.cmd.colorscheme("tokyonight-moon")
+
+        local opts = { noremap = true, silent = true }
+        vim.keymap.set(
+          "n",
+          "<leader>tm",
+          ToggleDarkMode,
+          vim.tbl_extend("force", opts, { desc = "[t]oggle dark[m]ode" })
+        )
+      end,
+      lazy = false,
+      priority = 1000,
+    },
     -- {
     --   "rebelot/kanagawa.nvim",
     --   config = function()
@@ -77,15 +76,15 @@ require("lazy").setup({
     --   lazy = false,
     --   priority = 1000,
     -- },
-    {
-      "navarasu/onedark.nvim",
-      config = function()
-        require("onedark").setup({ style = "dark" })
-        vim.cmd.colorscheme("onedark")
-      end,
-      lazy = false,
-      priority = 1000,
-    },
+    -- {
+    --   "navarasu/onedark.nvim",
+    --   config = function()
+    --     require("onedark").setup({ style = "dark" })
+    --     vim.cmd.colorscheme("onedark")
+    --   end,
+    --   lazy = false,
+    --   priority = 1000,
+    -- },
     -- {
     --   'sainnhe/gruvbox-material',
     --   lazy = false,
