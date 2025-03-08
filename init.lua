@@ -49,22 +49,15 @@ if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
   vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 end
 
--- test autocommand from docs
--- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
--- 	pattern = {"*.c", "*.h", "*.lua"},
--- 	command = "echo 'Entering a C or C++ file'",
--- })
-
--- another test autocommand from the docs
--- these are the types of commands plugins expose
--- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
---   -- callback = function(ev)
---     --   print(string.format('event fired: %s', vim.inspect(ev)))
---     -- end
---     callback = function()
---         print('hellllllo')
---       end
---     })
+-- turn off highlighting of TODO (only necessary with themes that define this hgroup?)
+-- commands runs after loading colorscheme
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.cmd("highlight clear Todo")
+    vim.cmd("highlight link Todo comment")
+  end,
+})
 
 require("config.lazy")
 require("config.options")

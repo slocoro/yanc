@@ -68,6 +68,19 @@ require("lazy").setup({
       lazy = false,
       priority = 1000,
     },
+    -- lua/plugins/rose-pine.lua
+    -- {
+    --   "rose-pine/neovim",
+    --   name = "rose-pine",
+    --   config = function()
+    --     require("rose-pine").setup({
+    --       variant = "dawn", -- auto, main, moon, or dawn
+    --     })
+    --     vim.cmd("colorscheme rose-pine")
+    --   end,
+    --   lazy = false,
+    --   priority = 1000,
+    -- },
     -- {
     --   "rebelot/kanagawa.nvim",
     --   config = function()
