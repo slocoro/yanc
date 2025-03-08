@@ -1,11 +1,15 @@
 return {
   "stevearc/conform.nvim",
-  -- TODO: figure how to load this at a better time e.g. before saving
-  lazy = false,
+  -- lazy load from docs:
+  -- https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#lazy-loading-with-lazynvim
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   opts = {
     log_level = vim.log.levels.DEBUG,
     notify_on_error = false,
-    format_on_save = true,
+    format_on_save = {
+      timeout_ms = 750,
+    },
     formatters_by_ft = {
       -- go = { 'gofmt' },
       -- rust = { 'rustfmt' },

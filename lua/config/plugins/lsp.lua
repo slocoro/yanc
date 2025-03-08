@@ -21,6 +21,9 @@ return {
       servers = {
         lua_ls = {},
         pyright = {},
+        -- ruff lsp is missing textDocument/documentHighlight which is used to highlight
+        -- symbols in the current document
+        -- ruff = {},
         terraformls = {},
         ts_ls = {},
         dockerls = {},
