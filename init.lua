@@ -36,6 +36,7 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
         "InsertCharPre",
         "WinLeave",
       },
+      border = "single",
     })
   end,
 })
