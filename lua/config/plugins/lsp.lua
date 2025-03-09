@@ -72,18 +72,43 @@ return {
             require("telescope.builtin").lsp_definitions,
             vim.tbl_extend("force", bufopts, { desc = "Go to Definition" })
           )
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
+
+          -- add border to hover menu
+          -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
+          local function bordered_lsp_buf_hover()
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+              border = "single",
+            })
+            vim.lsp.buf.hover()
+          end
+
+          vim.keymap.set(
+            "n",
+            "K",
+            bordered_lsp_buf_hover,
+            vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" })
+          )
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
           vim.keymap.set("n", "go", function()
             require("telescope.builtin").lsp_document_symbols({ ignore_symbols = "variable" })
           end, { desc = "View Document Symbols (outline)" })
-          -- ("go", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+
+          -- add border to signature help
+          -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
+          local function bordered_lsp_buf_signature_help()
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+              border = "single",
+            })
+            vim.lsp.buf.signature_help()
+          end
+
           vim.keymap.set(
             "n",
             "<C-k>",
-            vim.lsp.buf.signature_help,
+            bordered_lsp_buf_signature_help,
             vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" })
           )
+
           -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
           -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
           vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
@@ -103,7 +128,6 @@ return {
             "n",
             "gr",
             require("telescope.builtin").lsp_references,
-            -- vim.lsp.buf.references,
             vim.tbl_extend("force", bufopts, { desc = "LSP references" })
           )
 
