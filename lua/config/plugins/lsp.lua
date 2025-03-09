@@ -137,26 +137,6 @@ return {
             toggle_diagnostics,
             vim.tbl_extend("force", bufopts, { desc = "LSP [t]oggle [d]iagnostics" })
           )
-          -- if client.supports_method("textDocument/formatting") and vim.bo.filetype == "lua" then
-          --   -- or use this condition that checks what file type the current buffer has
-          --   -- if vim.bo.filetype == "lua" then
-          --   -- format current buffer on save (just before we write a buffer)
-          --   -- only listen to those events inside this current buffer
-          --   -- (that's why we use "buffer = args.buf")
-          --   vim.api.nvim_create_autocmd("BufWritePre", {
-          --     buffer = args.buf,
-          --     -- not passing "args" to function below because it's available
-          --     -- in the scope of the enclosing function
-          --     callback = function()
-          --       vim.lsp.buf.format({
-          --         bufbr = args.buf,
-          --         id = client.id,
-          --         formatting_options = { insert_final_newline = true }, -- doesn't work
-          --         async = false,
-          --       })
-          --     end,
-          --   })
-          -- end
         end,
       })
     end,
