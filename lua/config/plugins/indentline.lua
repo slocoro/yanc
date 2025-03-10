@@ -5,7 +5,10 @@ return {
     main = "ibl",
     opts = {
       scope = { enabled = false },
-      indent = { char = "|" },
+      -- indent = { char = "|" },
+      -- indent = { char = "⏐" },
+      -- thinner vertical bad than default
+      indent = { char = "│" },
     },
   },
 }
