@@ -8,7 +8,8 @@ return {
       -- statusline.setup({ use_icons = true })
 
       require("mini.pairs").setup({})
-      -- not sure how to set this up
+      require("mini.surround").setup({})
+
       -- require('mini.git').setup({})
     end,
   },
