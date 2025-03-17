@@ -8,7 +8,7 @@ return {
     log_level = vim.log.levels.DEBUG,
     notify_on_error = false,
     format_on_save = {
-      timeout_ms = 750,
+      timeout_ms = 2500,
     },
     formatters_by_ft = {
       -- go = { 'gofmt' },
