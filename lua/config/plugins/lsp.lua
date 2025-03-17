@@ -30,6 +30,7 @@ return {
         bashls = {},
         clangd = {},
         html = {},
+        cssls = {},
       },
     },
     config = function(_, opts)
