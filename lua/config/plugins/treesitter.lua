@@ -34,6 +34,9 @@ return {
           end,
           additional_vim_regex_highlighting = false,
         },
+        modules = {},
+        sync_install = true,
+        ignore_install = {},
       })
     end,
   },
