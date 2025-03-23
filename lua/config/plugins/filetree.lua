@@ -10,7 +10,7 @@ return {
     },
     event = "VeryLazy",
     keys = {
-      -- { "<leader>e", ":Neotree toggle left<CR>", silent = true, desc = "Left File Explorer" },
+      { "<leader>E", ":Neotree toggle left<CR>", silent = true, desc = "Left File Explorer" },
       { "<leader>e", ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
     },
   },
