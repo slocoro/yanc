@@ -28,20 +28,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
-ToggleDarkMode = function()
-  local colorschemes = {
-    dark = "tokyonight-moon",
-    light = "tokyonight-day",
-  }
-  -- somehow when using vim.g.colors_name directly in the if statement it doesn't work
-  local current_colorscheme = vim.g.colors_name
-  if current_colorscheme == colorschemes.dark then
-    vim.cmd.colorscheme(colorschemes.light)
-  else
-    vim.cmd.colorscheme(colorschemes.dark)
-  end
-end
-
 -- Setup lazy.nvim
 -- when lua encounters a "require" it searches the runtime path for a directory called
 -- "lazy" and look for a file called "init.lua" and run it
@@ -52,10 +38,6 @@ require("lazy").setup({
     notify = false, -- get a notification when changes are found
   },
   spec = {
-    -- import your plugins
-    -- this needs to match the folder structure you use to organise
-    -- your plugins, in this case lua/congig/plugins
-    { import = "config.themes" },
     { import = "config.plugins" },
   },
 })
