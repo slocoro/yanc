@@ -22,8 +22,5 @@ return {
     "sainnhe/gruvbox-material",
     lazy = true,
   },
-  {
-    "catppuccin/nvim",
-    lazy = true,
-  },
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
 }
