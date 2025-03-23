@@ -1,5 +1,4 @@
--- TODO: reorganise colorschemes based on
--- https://github.com/jdhao/nvim-config/blob/8cba1ba234604069cee272eb55649203c21d9dde/init.lua
+-- organised based on: https://github.com/jdhao/nvim-config/blob/8cba1ba234604069cee272eb55649203c21d9dde/init.lua
 return {
   {
     "folke/tokyonight.nvim",
@@ -22,5 +21,10 @@ return {
     "sainnhe/gruvbox-material",
     lazy = true,
   },
-  { "catppuccin/nvim", name = "catppuccin", lazy = true },
+  {
+    "catppuccin/nvim",
+    -- "name" is required for lazy.lua not to return "nil" when saving
+    name = "catppuccin",
+    lazy = true,
+  },
 }
