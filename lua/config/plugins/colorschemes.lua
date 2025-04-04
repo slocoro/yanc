@@ -1,5 +1,6 @@
 -- organised based on: https://github.com/jdhao/nvim-config/blob/8cba1ba234604069cee272eb55649203c21d9dde/init.lua
 return {
+  { "Mofiqul/dracula.nvim", lazy = true },
   {
     "folke/tokyonight.nvim",
     lazy = true,

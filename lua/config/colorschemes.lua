@@ -15,6 +15,9 @@ ToggleDarkMode = function()
 end
 
 M.colorscheme_conf = {
+  dracula = function()
+    vim.cmd.colorscheme("dracula")
+  end,
   tokyonight = function()
     vim.cmd.colorscheme("tokyonight-moon")
     local opts = { noremap = true, silent = true }
@@ -71,4 +74,4 @@ M.set_colorscheme = function(colorscheme)
 end
 
 -- Load a random colorscheme
-M.set_colorscheme("tokyonight")
+M.set_colorscheme("onedark")
