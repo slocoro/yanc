@@ -1,3 +1,7 @@
+-- TODO:
+-- build nvim from source
+-- update to newest version
+
 -- this makes Ghostty show the working dir as tab name
 if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
   vim.opt.title = true

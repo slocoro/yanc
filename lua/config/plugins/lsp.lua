@@ -66,11 +66,12 @@ return {
             vim.lsp.buf.declaration,
             vim.tbl_extend("force", bufopts, { desc = "Go to Declaration" })
           )
+
+          -- goes to definition or lists them if there are multiple
           vim.keymap.set(
             "n",
             "gd",
-            -- vim.lsp.buf.definition,
-            require("telescope.builtin").lsp_definitions,
+            require("fzf-lua").lsp_definitions,
             vim.tbl_extend("force", bufopts, { desc = "Go to Definition" })
           )
 
@@ -89,9 +90,12 @@ return {
             bordered_lsp_buf_hover,
             vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" })
           )
+
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+
+          -- TODO: filter out variables to make this more usable
           vim.keymap.set("n", "go", function()
-            require("telescope.builtin").lsp_document_symbols({ ignore_symbols = "variable" })
+            require("fzf-lua").lsp_document_symbols()
           end, { desc = "View Document Symbols (outline)" })
 
           -- add border to signature help
@@ -113,22 +117,25 @@ return {
           -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
           -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
           vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+
           vim.keymap.set(
             "n",
             "<leader>rn",
             vim.lsp.buf.rename,
             vim.tbl_extend("force", bufopts, { desc = "LSP rename" })
           )
+
           vim.keymap.set(
             "n",
             "<leader>ca",
             vim.lsp.buf.code_action,
             vim.tbl_extend("force", bufopts, { desc = "LSP code action" })
           )
+
           vim.keymap.set(
             "n",
             "gr",
-            require("telescope.builtin").lsp_references,
+            require("fzf-lua").lsp_references,
             vim.tbl_extend("force", bufopts, { desc = "LSP references" })
           )
 
