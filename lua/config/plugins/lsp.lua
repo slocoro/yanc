@@ -93,9 +93,8 @@ return {
 
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 
-          -- TODO: filter out variables to make this more usable
           vim.keymap.set("n", "go", function()
-            require("fzf-lua").lsp_document_symbols()
+            require("fzf-lua").lsp_document_symbols({ regex_filter = { "Variable", exclude = true } })
           end, { desc = "View Document Symbols (outline)" })
 
           -- add border to signature help
