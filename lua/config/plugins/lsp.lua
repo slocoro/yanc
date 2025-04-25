@@ -93,6 +93,8 @@ return {
 
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 
+          -- filter out specific symbols
+          -- https://github.com/ibhagwan/fzf-lua/issues/1517
           vim.keymap.set("n", "go", function()
             require("fzf-lua").lsp_document_symbols({ regex_filter = { "Variable", exclude = true } })
           end, { desc = "View Document Symbols (outline)" })

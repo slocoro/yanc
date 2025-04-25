@@ -13,6 +13,8 @@ return {
     { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find files" },
     { "<leader>fb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Find buffers" },
     {
+      -- only list modified files
+      -- https://github.com/ibhagwan/fzf-lua/issues/18
       "<leader>fc",
       function()
         require("fzf-lua").git_files({ cmd = "git ls-files --modified" })
