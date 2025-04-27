@@ -1,6 +1,7 @@
 -- TODO:
 -- build nvim from source
 -- update to newest version
+-- fix start screen shortcuts (pressing f doesn't work as it tries to use telescope)
 
 -- this makes Ghostty show the working dir as tab name
 if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
