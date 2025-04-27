@@ -1,5 +1,7 @@
 local M = {}
 
+-- TODO:
+-- fix this and make it general so that it works with every colorscheme
 ToggleDarkMode = function()
   local colorschemes = {
     dark = "tokyonight-moon",
@@ -14,6 +16,8 @@ ToggleDarkMode = function()
   end
 end
 
+-- TODO:
+-- add https://github.com/bluz71/vim-moonfly-colors
 M.colorscheme_conf = {
   dracula = function()
     vim.cmd.colorscheme("dracula")
