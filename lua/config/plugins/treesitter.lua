@@ -8,15 +8,15 @@ return {
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "c",
+          "css",
+          "html",
           "lua",
-          "vim",
-          "vimdoc",
-          "query",
           "markdown",
           "markdown_inline",
           "python",
-          "html",
-          "css",
+          "query",
+          "vim",
+          "vimdoc",
         },
         auto_install = true,
         highlight = {
