@@ -24,7 +24,17 @@ return {
     { "<leader>fh", "<cmd>FzfLua help_tags<cr>", desc = "Find help tags" },
     { "<leader>fk", "<cmd>FzfLua keymaps<cr>", desc = "Find key maps" },
     { "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "Resume previous find" },
-    { "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live grep" },
+    {
+      "<leader>fg",
+      function()
+        require("fzf-lua").live_grep({
+          -- includes hidden files while respecting .gitignore
+          -- explicitly excludes .git/
+          rg_opts = "--hidden -g '!.git' --column --line-number --no-heading --color=always --smart-case",
+        })
+      end,
+      desc = "Live grep",
+    },
     {
       "<leader>go",
       function()
