@@ -8,9 +8,14 @@
 -- end
 
 vim.lsp.enable({
-  -- lua
+  "bashls",
+  "clangd",
+  "cssls",
+  "dockerls",
+  "html",
   "lua_ls",
   "pyright",
+  "terraformls",
 })
 
 -- pyright was always using up all of the CPU, the below seems to fix it
