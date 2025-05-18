@@ -1,6 +1,4 @@
 -- TODO:
--- build nvim from source
--- update to newest version
 -- fix start screen shortcuts (pressing f doesn't work as it tries to use telescope)
 -- add live_grep that allows excluding files using -- https://github.com/ibhagwan/fzf-lua/issues/167
 
@@ -10,7 +8,9 @@ if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
   vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 end
 
-require("config.lazy")
+-- order matters
+require("config.lazy") -- plugin loading happens here
+require("config.lsp")
 require("config.autocommands")
 require("config.colorschemes")
 require("config.options")
