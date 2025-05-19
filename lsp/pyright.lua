@@ -9,6 +9,7 @@ local function set_python_path(path)
     else
       client.config.settings = vim.tbl_deep_extend("force", client.config.settings, { python = { pythonPath = path } })
     end
+    vim.print(path)
     client.notify("workspace/didChangeConfiguration", { settings = nil })
   end
 end
@@ -31,6 +32,7 @@ return {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
         diagnosticMode = "openFilesOnly",
+        logLevel = "Trace",
       },
     },
   },
