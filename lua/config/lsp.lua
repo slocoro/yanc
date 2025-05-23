@@ -8,13 +8,14 @@
 -- end
 
 vim.lsp.enable({
+  "basedpyright",
   "bashls",
   "clangd",
   "cssls",
   "dockerls",
   "html",
   "lua_ls",
-  "pyright",
+  -- "pyright",
   "terraformls",
 })
 
