@@ -13,14 +13,16 @@ return {
     formatters_by_ft = {
       -- go = { 'gofmt' },
       -- rust = { 'rustfmt' },
-      python = { "black" },
-      c = { "clang-format" },
-      lua = { "stylua" },
       bash = { "shfmt", "shellcheck" },
-      zsh = { "shfmt", "shellcheck" },
-      sh = { "shfmt", "shellcheck" },
+      c = { "clang-format" },
       css = { "prettier" },
       html = { "prettier" },
+      json = { "jq" },
+      lua = { "stylua" },
+      python = { "black" },
+      sh = { "shfmt", "shellcheck" },
+      yaml = { "yq" },
+      zsh = { "shfmt", "shellcheck" },
     },
     formatters = {
       shfmt = {
