@@ -1,12 +1,3 @@
--- local lspconfig = require("lspconfig")
--- -- pass config to each lsp
--- for server, config in pairs(opts.servers) do
---   -- passing config.capabilities to blink.cmp merges with the capabilities in your
---   -- `opts[server].capabilities, if you've defined it
---   config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
---   lspconfig[server].setup(config)
--- end
-
 vim.lsp.enable({
   "basedpyright",
   "bashls",
@@ -15,20 +6,20 @@ vim.lsp.enable({
   "dockerls",
   "html",
   "lua_ls",
-  -- "pyright",
   "terraformls",
 })
 
+-- NOTE: the below might not work as intended
 -- pyright was always using up all of the CPU, the below seems to fix it
 -- https://github.com/neovim/neovim/issues/23819
 -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-local ok, wf = pcall(require, "vim.lsp._watchfiles")
-if ok then
-  -- disable lsp watcher. Too slow on linux
-  wf._watchfunc = function()
-    return function() end
-  end
-end
+-- local ok, wf = pcall(require, "vim.lsp._watchfiles")
+-- if ok then
+--   -- disable lsp watcher. Too slow on linux
+--   wf._watchfunc = function()
+--     return function() end
+--   end
+-- end
 
 local toggle_diagnostics = function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -59,14 +50,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- add border to hover menu
     -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
-    local function bordered_lsp_buf_hover()
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = "single",
-      })
-      vim.lsp.buf.hover()
-    end
+    -- local function bordered_lsp_buf_hover()
+    --   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    --     border = "single",
+    --   })
+    --   vim.lsp.buf.hover()
+    -- end
 
-    vim.keymap.set("n", "K", bordered_lsp_buf_hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
 
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 
@@ -76,19 +67,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
       require("fzf-lua").lsp_document_symbols({ regex_filter = { "Variable", exclude = true } })
     end, { desc = "View Document Symbols (outline)" })
 
-    -- add border to signature help
-    -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
-    local function bordered_lsp_buf_signature_help()
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = "single",
-      })
-      vim.lsp.buf.signature_help()
-    end
+    -- -- add border to signature help
+    -- -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
+    -- local function bordered_lsp_buf_signature_help()
+    --   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    --     border = "single",
+    --   })
+    --   vim.lsp.buf.signature_help()
+    -- end
 
     vim.keymap.set(
       "n",
       "<C-k>",
-      bordered_lsp_buf_signature_help,
+      vim.lsp.buf.signature_help,
       vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" })
     )
 
