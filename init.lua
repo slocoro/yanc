@@ -1,8 +1,5 @@
 -- TODO:
--- build nvim from source
--- update to newest version
 -- fix start screen shortcuts (pressing f doesn't work as it tries to use telescope)
--- add live_grep that allows excluding files using -- https://github.com/ibhagwan/fzf-lua/issues/167
 
 -- this makes Ghostty show the working dir as tab name
 if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
