@@ -9,12 +9,23 @@ return {
   -- dependencies = "folke/persistence.nvim",
   opts = function()
     local dashboard = require("alpha.themes.dashboard")
+    -- from: https://github.com/eric-parsons/dotfiles/blob/78aedf6e80faa6fb5d000fb0642411ceb23978bb/.config/nvim/lua/plugins/alpha.lua#L13C1-L22C10
+    dashboard.section.header.val = {
+      "⠀⠀⠀⣾⣿⣿⣿⣿⣦⡀⢸⣿⣿⣿⣿⠃⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢸⣿⣿⣿⣿⡄⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⡿⢁⣿⣿⣿⣿⡇⠀⣸⣿⣿⣿⣿⣷⣄⠀⢀⣴⣿⣿⣿⣿⡟",
+      "⠀⠀⠀⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠟⠸⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠀⠀⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠇⠘⠿⠿⠿⠿⠇⠀⠀⠀⠰⠿⠿⠿⠿⠿⠟⠀⠸⠿⠿⠿⠿⠀⠀⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠇",
+      "⠀⠀⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⠀⢠⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⡆⠀⣰⣶⣶⣶⡶⠀⠀⠀⣶⣶⣶⣶⡆⠀⣶⣶⣶⣶⣶⠀⢀⣶⣶⣶⣶⣶⡶⠀⠀⠀⣶⣶⣶⣶⡆⠀⢰⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⠀",
+      "⠀⢰⣿⣿⣿⣿⠉⠻⣿⣿⣿⣿⣿⡟⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⣿⣿⣿⣿⠇⠀⠀⢸⣿⣿⣿⣿⠀⠀⢸⣿⣿⣿⣿⣧⣾⣿⣿⣿⣿⠟⠁⠀⠀⢸⣿⣿⣿⣿⠁⠀⣿⣿⣿⣿⠇⠙⢿⣿⠟⢹⣿⣿⣿⣿⡇⠀",
+      "⠀⣾⣿⣿⣿⡟⠀⠀⢸⣿⣿⣿⣿⠃⢠⣿⣿⣿⣿⡿⠉⠉⠉⠉⠉⠉⠀⢸⣿⣿⣿⡿⠀⠀⠀⣿⣿⣿⣿⡇⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⣿⣿⣿⣿⡇⠀⢸⣿⣿⣿⣿⠀⠀⠈⠁⠀⣼⣿⣿⣿⡿⠀⠀",
+      "⢠⣿⣿⣿⣿⠁⠀⠀⣿⣿⣿⣿⡿⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢸⣿⣿⣿⣷⣶⣶⣾⣿⣿⣿⡟⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⣸⣿⣿⣿⣿⠁⠀⣿⣿⣿⣿⡇⠀⠀⠀⠀⢰⣿⣿⣿⣿⠇⠀⠀",
+      "⣼⣿⣿⣿⡏⠀⠀⢸⣿⣿⣿⣿⡇⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠈⠻⢿⣿⣿⣿⣿⣿⡿⠟⠋⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⡟⠀⢸⣿⣿⣿⣿⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⠀⠀⠀",
+      "",
+    }
     dashboard.section.buttons.val = {
-      dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+      dashboard.button("f", " " .. " Find file", "<cmd>lua require('fzf-lua').files()<cr>"),
       -- dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-      dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-      -- dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-      dashboard.button("s", " " .. "Restore Session", '<cmd>lua require("persistence").load()<cr>'),
+      dashboard.button("r", " " .. " Recent files", "<cmd>lua require('fzf-lua').oldfiles()<cr>"),
+      dashboard.button("g", " " .. " Find text", "<cmd>lua require('fzf-lua').live_grep()<CR>"),
+      dashboard.button("s", " " .. "Restore Session", "<cmd>lua require('persistence').load()<cr>"),
       -- dashboard.button("c", " " .. " Config", ":e ~/.config/nvim/ <CR>"),
       -- dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
       dashboard.button("q", " " .. " Quit", ":qa<CR>"),
