@@ -6,6 +6,12 @@ return {
     fzf_opts = {
       ["--layout"] = "reverse",
     },
+    keymap = {
+      fzf = {
+        -- create quickfix list from search results
+        ["ctrl-q"] = "select-all+accept",
+      },
+    },
   },
   opts = {},
   keys = {
