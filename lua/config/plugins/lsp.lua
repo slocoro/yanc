@@ -75,21 +75,16 @@ return {
             vim.tbl_extend("force", bufopts, { desc = "Go to Definition" })
           )
 
-          -- add border to hover menu
-          -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
-          local function bordered_lsp_buf_hover()
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-              border = "single",
-            })
-            vim.lsp.buf.hover()
-          end
+          -- -- add border to hover menu
+          -- -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
+          -- local function bordered_lsp_buf_hover()
+          --   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+          --     border = "single",
+          --   })
+          --   vim.lsp.buf.hover()
+          -- end
 
-          vim.keymap.set(
-            "n",
-            "K",
-            bordered_lsp_buf_hover,
-            vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" })
-          )
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" }))
 
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 
@@ -101,17 +96,17 @@ return {
 
           -- add border to signature help
           -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
-          local function bordered_lsp_buf_signature_help()
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-              border = "single",
-            })
-            vim.lsp.buf.signature_help()
-          end
+          -- local function bordered_lsp_buf_signature_help()
+          --   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+          --     border = "single",
+          --   })
+          --   vim.lsp.buf.signature_help()
+          -- end
 
           vim.keymap.set(
             "n",
             "<C-k>",
-            bordered_lsp_buf_signature_help,
+            vim.lsp.buf.signature_help,
             vim.tbl_extend("force", bufopts, { desc = "Open Hover Menu" })
           )
 

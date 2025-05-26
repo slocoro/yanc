@@ -41,7 +41,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
         "InsertCharPre",
         "WinLeave",
       },
-      border = "single",
     })
   end,
 })
@@ -50,7 +49,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 vim.api.nvim_create_autocmd("CursorHold", {
   pattern = "*",
   callback = function()
-    if vim.bo.filetype == "terraform" then
+    if vim.bo.filetype == "terraform" or vim.bo.filetype == "terraform-vars" then
       return
     end
     vim.lsp.buf.document_highlight()
