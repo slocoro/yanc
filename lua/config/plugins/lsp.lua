@@ -20,7 +20,17 @@ return {
     opts = {
       servers = {
         lua_ls = {},
-        pyright = {},
+        basedpyright = {
+          cmd = { "basedpyright-langserver", "--stdio" },
+          settings = {
+            python = {
+              analysis = {
+                -- for debugging
+                -- logLevel = "Trace", -- or "Information"
+              },
+            },
+          },
+        },
         -- ruff lsp is missing textDocument/documentHighlight which is used to highlight
         -- symbols in the current document
         -- ruff = {},
@@ -43,6 +53,10 @@ return {
         lspconfig[server].setup(config)
       end
 
+      -- for debugging
+      -- vim.lsp.set_log_level(vim.log.levels.DEBUG)
+      -- vim.lsp.log.set_format_func(vim.inspect)
+
       -- NOTE: the below might not work as intended
       -- pyright was always using up all of the CPU, the below seems to fix it
       -- https://github.com/neovim/neovim/issues/23819
@@ -58,6 +72,16 @@ return {
       local toggle_diagnostics = function()
         vim.diagnostic.enable(not vim.diagnostic.is_enabled())
       end
+
+      -- (based)pyright doesn't always close when exiting nvim
+      -- that force kills it
+      vim.api.nvim_create_autocmd("VimLeavePre", {
+        callback = function()
+          for _, client in pairs(vim.lsp.get_active_clients()) do
+            client.stop()
+          end
+        end,
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         -- this autocommand runs after every LspAttach event inside Neovim
