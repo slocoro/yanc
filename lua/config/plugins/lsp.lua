@@ -1,3 +1,13 @@
+-- https://neovim.discourse.group/t/execute-typescript-organize-imports-automatically/5269
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+    title = "",
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -35,7 +45,22 @@ return {
         -- symbols in the current document
         -- ruff = {},
         terraformls = {},
-        ts_ls = {},
+        ts_ls = {
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              command = "OrganizeImports",
+            })
+          end,
+          commands = {
+            OrganizeImports = {
+              organize_imports,
+              description = "Organize Imports",
+            },
+          },
+          single_file_support = false,
+        },
         dockerls = {},
         bashls = {},
         clangd = {},
