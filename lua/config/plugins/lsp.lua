@@ -44,6 +44,7 @@ return {
         -- ruff lsp is missing textDocument/documentHighlight which is used to highlight
         -- symbols in the current document
         -- ruff = {},
+        csharp_ls = {},
         terraformls = {},
         ts_ls = {
           -- couldn't find a way to make this automatic (e.g. BufWritePre) as the operation
