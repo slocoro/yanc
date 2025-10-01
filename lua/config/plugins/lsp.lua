@@ -46,14 +46,14 @@ return {
         -- ruff = {},
         terraformls = {},
         ts_ls = {
-          on_attach = function(client, bufnr)
-            client.server_capabilities.documentFormattingProvider = false
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              buffer = bufnr,
-              command = "OrganizeImports",
-            })
-          end,
+          -- couldn't find a way to make this automatic (e.g. BufWritePre) as the operation
+          -- is async. Before the buffer is written the request is made to the LSP, then
+          -- the buffer is written, and then the sorting is applied, which causes the buffer
+          -- to have changes
           commands = {
+            -- the name of the command
+            -- use :OrganizeImports to trigger
+            -- (will only be available on projects where ts_ls gets attached as lsp)
             OrganizeImports = {
               organize_imports,
               description = "Organize Imports",
