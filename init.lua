@@ -10,6 +10,7 @@ end
 require("config.lazy")
 require("config.autocommands")
 require("config.colorschemes")
+require("config.lsp")
 require("config.options")
 require("config.keymaps")
 require("config.remotelink").setup()

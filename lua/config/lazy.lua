@@ -39,5 +39,6 @@ require("lazy").setup({
   },
   spec = {
     { import = "config.plugins" },
+    { import = "config.plugins.lsp" },
   },
 })
