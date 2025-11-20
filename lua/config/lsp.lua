@@ -3,17 +3,18 @@
 -- the lsp gets configured nvim/lsp/<lsp-name>.lua
 -- or it uses the configs from nvim-lspconfig if not provided (assuming plugin is installed)
 vim.lsp.enable({
-  "lua_ls",
-  "basedpyright",
-  "csharp_ls",
-  "terraformls",
-  "ts_ls",
-  "dockerls",
+  -- "basedpyright",
   "bashls",
   "clangd",
-  "html",
+  "csharp_ls",
   "cssls",
+  "dockerls",
+  "html",
+  "lua_ls",
+  "pyrefly",
   "sqlls",
+  "terraformls",
+  "ts_ls",
 })
 
 -- for debugging
