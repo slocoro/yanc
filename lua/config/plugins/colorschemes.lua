@@ -16,6 +16,7 @@ return {
   },
   {
     "navarasu/onedark.nvim",
+    version = "v0.1.0",
     lazy = true,
   },
   {
