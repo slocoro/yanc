@@ -50,6 +50,10 @@ return {
       sh = { "shfmt", "shellcheck" },
       css = { "prettier" },
       html = { "prettier" },
+      javascript = { "biome", "biome-organize-imports" },
+      javascriptreact = { "biome", "biome-organize-imports" },
+      typescript = { "biome", "biome-organize-imports" },
+      typescriptreact = { "biome", "biome-organize-imports" },
     },
     formatters = {
       shfmt = {
