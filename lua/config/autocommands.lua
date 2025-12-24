@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 vim.api.nvim_create_autocmd("CursorHold", {
   pattern = "*",
   callback = function()
-    if vim.bo.filetype == "terraform" or vim.bo.filetype == "terraform-vars" then
+    if vim.bo.filetype == "terraform" or vim.bo.filetype == "terraform-vars" or vim.bo.filetype == "sql" then
       return
     end
     vim.lsp.buf.document_highlight()
