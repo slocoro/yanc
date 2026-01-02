@@ -43,7 +43,6 @@ return {
         -- To organize the imports.
         "ruff_organize_imports",
       },
-      c = { "clang-format" },
       lua = { "stylua" },
       bash = { "shfmt", "shellcheck" },
       zsh = { "shfmt", "shellcheck" },
