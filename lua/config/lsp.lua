@@ -9,6 +9,7 @@ vim.lsp.enable({
   "csharp_ls",
   "cssls",
   "dockerls",
+  "gopls",
   "html",
   "lua_ls",
   "pyrefly",
