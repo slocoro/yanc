@@ -99,7 +99,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.api.nvim_set_hl(0, "CursorLine", { bg = lighter_gray })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = lighter_gray })
     vim.api.nvim_set_hl(0, "FloatBorder", { bg = lighter_gray })
-    -- vim.api.nvim_set_hl(0, "FloatTitle", { bg = "#c6c6c6" })
   end,
 })
 
