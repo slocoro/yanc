@@ -21,7 +21,7 @@ return {
     },
   },
   keys = {
-    { "<leader>E", ":Neotree toggle left<CR>", silent = true, desc = "Left File Explorer" },
-    { "<leader>e", ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
+    { "<leader>E", ":Neotree reveal position=current toggle left<CR>", silent = true, desc = "Left File Explorer" },
+    { "<leader>e", ":Neotree reveal position=current toggle float<CR>", silent = true, desc = "Float File Explorer" },
   },
 }
