@@ -78,4 +78,29 @@ M.set_colorscheme = function(colorscheme)
 end
 
 -- Load a random colorscheme
-M.set_colorscheme("onedark")
+
+-- M.set_colorscheme("onedark")
+
+-- simplify colorscheme
+-- the below autocommand runs after the colorscheme is set
+-- makes the background a bit lighter than in the theme
+-- StatusLine     xxx cterm=bold,reverse ctermfg=251 ctermbg=16 gui=bold,reverse guifg=#c6c6c6 guibg=#000000
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "lunaperche",
+  callback = function()
+    local gray_bg = "#232323"
+    local lighter_gray = "#303030"
+
+    vim.api.nvim_set_hl(0, "Normal", { bg = gray_bg })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = gray_bg })
+    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = gray_bg })
+    vim.api.nvim_set_hl(0, "SignColumn", { bg = gray_bg })
+    vim.api.nvim_set_hl(0, "LineNr", { bg = gray_bg })
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = lighter_gray })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = lighter_gray })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = lighter_gray })
+    -- vim.api.nvim_set_hl(0, "FloatTitle", { bg = "#c6c6c6" })
+  end,
+})
+
+vim.cmd.colorscheme("lunaperche")
