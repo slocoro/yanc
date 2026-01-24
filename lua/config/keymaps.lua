@@ -16,3 +16,7 @@ k.set("n", "]q", "<cmd>cnext<CR>")
 -- don't add entry to jumplist when using [ or ]
 k.set("n", "}", ":<C-u>execute 'keepjumps norm!' . v:count1 . '}'<CR>", { noremap = true, silent = true })
 k.set("n", "{", ":<C-u>execute 'keepjumps norm!' . v:count1 . '{'<CR>", { noremap = true, silent = true })
+
+-- quick save
+k.set("n", "WW", "<cmd>w<cr>", { desc = "Save file" })
+k.set("n", "WQ", "<cmd>wq<cr>", { desc = "Save file and quit" })
