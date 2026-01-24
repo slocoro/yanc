@@ -88,6 +88,7 @@ end
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "lunaperche",
   callback = function()
+    -- gray_bg is aligned with "backgroung" colour of Ghostty theme
     local gray_bg = "#14161b"
     local lighter_gray = "#23272f"
 
