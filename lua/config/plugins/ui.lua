@@ -8,7 +8,10 @@ return {
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
     opts = {
-      -- configurations go here
+      theme = {
+        -- `bg` color matches gray_bg in colorschemes.lua
+        normal = { fg = "#c0caf5", bg = "#232323" },
+      },
     },
   },
   -- { "nvim-treesitter/nvim-treesitter-context", enabled = true, mode = "cursor", max_lines = 3 },
