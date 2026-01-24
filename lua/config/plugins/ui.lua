@@ -10,7 +10,7 @@ return {
     opts = {
       theme = {
         -- `bg` color matches gray_bg in colorschemes.lua
-        normal = { fg = "#c0caf5", bg = "#232323" },
+        normal = { fg = "#c0caf5", bg = "#14161b" },
       },
     },
   },
