@@ -65,7 +65,7 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 
 -- Show column line
-vim.opt.colorcolumn = "88"
+-- vim.opt.colorcolumn = "88"
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- 999 keeps the cursor centered when scrolling up/down
