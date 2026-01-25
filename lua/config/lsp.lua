@@ -22,10 +22,6 @@ vim.lsp.enable({
 -- vim.lsp.set_log_level(vim.log.levels.DEBUG)
 -- vim.lsp.log.set_format_func(vim.inspect)
 
-local toggle_diagnostics = function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end
-
 -- (based)pyright doesn't always close when exiting nvim
 -- that force kills it
 vim.api.nvim_create_autocmd("VimLeavePre", {
@@ -113,13 +109,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       "gr",
       require("fzf-lua").lsp_references,
       vim.tbl_extend("force", bufopts, { desc = "LSP references" })
-    )
-
-    vim.keymap.set(
-      "n",
-      "<leader>td",
-      toggle_diagnostics,
-      vim.tbl_extend("force", bufopts, { desc = "LSP [t]oggle [d]iagnostics" })
     )
   end,
 })
