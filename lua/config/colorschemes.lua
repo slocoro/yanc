@@ -84,7 +84,6 @@ end
 -- simplify colorscheme
 -- the below autocommand runs after the colorscheme is set
 -- makes the background a bit lighter than in the theme
--- StatusLine     xxx cterm=bold,reverse ctermfg=251 ctermbg=16 gui=bold,reverse guifg=#c6c6c6 guibg=#000000
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "lunaperche",
   callback = function()
