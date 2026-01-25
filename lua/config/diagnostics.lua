@@ -1,22 +1,4 @@
-local toggle_diagnostics = function()
-  -- Check if enabled for the current buffer (0)
-  local is_enabled = vim.diagnostic.is_enabled({ bufnr = 0 })
-
-  -- Toggle the state for the current buffer
-  vim.diagnostic.enable(not is_enabled, { bufnr = 0 })
-
-  -- Optional: Print a message so you know it worked
-  print("Diagnostics " .. (is_enabled and "Disabled" or "Enabled"))
-end
-
-vim.keymap.set(
-  "n",
-  "<leader>td",
-  toggle_diagnostics,
-  { noremap = true, silent = true, desc = "LSP [t]oggle [d]iagnostics" }
-)
-
-vim.diagnostic.config({
+local diagnostic_config = {
   virtual_text = {
     source = "if_many",
     prefix = "●",
@@ -28,7 +10,34 @@ vim.diagnostic.config({
   signs = true,
   update_in_insert = false,
   severity_sort = true,
-})
+}
+
+local toggle_virtual_text = function()
+  local current_conf = vim.diagnostic.config().virtual_text
+
+  if current_conf then
+    vim.diagnostic.config({ virtual_text = false })
+    print("Virtual Text Off")
+  else
+    vim.diagnostic.config(diagnostic_config)
+    print("Virtual Text On")
+  end
+end
+
+local toggle_diagnostics = function()
+  local is_enabled = vim.diagnostic.is_enabled({ bufnr = 0 })
+  vim.diagnostic.enable(not is_enabled, { bufnr = 0 })
+  print("Diagnostics " .. (is_enabled and "Disabled" or "Enabled"))
+end
+
+vim.diagnostic.config(diagnostic_config)
+
+vim.keymap.set(
+  "n",
+  "<leader>td",
+  toggle_virtual_text,
+  { noremap = true, silent = true, desc = "LSP [t]oggle [d]iagnostics" }
+)
 
 vim.keymap.set("n", "<leader>yd", function()
   local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
