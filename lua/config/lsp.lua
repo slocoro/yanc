@@ -3,7 +3,6 @@
 -- the lsp gets configured nvim/lsp/<lsp-name>.lua
 -- or it uses the configs from nvim-lspconfig if not provided (assuming plugin is installed)
 vim.lsp.enable({
-  -- "basedpyright",
   "bashls",
   "clangd",
   "csharp_ls",
@@ -21,16 +20,6 @@ vim.lsp.enable({
 -- for debugging
 -- vim.lsp.set_log_level(vim.log.levels.DEBUG)
 -- vim.lsp.log.set_format_func(vim.inspect)
-
--- (based)pyright doesn't always close when exiting nvim
--- that force kills it
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    for _, client in pairs(vim.lsp.get_active_clients()) do
-      client.stop()
-    end
-  end,
-})
 
 -- define lsp related keymaps in here so that they are only available if lsp is attached
 vim.api.nvim_create_autocmd("LspAttach", {
