@@ -92,15 +92,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     local gray_bg = "#14161b"
     local lighter_gray = "#23272f"
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = gray_bg })
-    vim.api.nvim_set_hl(0, "NormalNC", { bg = gray_bg })
-    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = gray_bg })
-    vim.api.nvim_set_hl(0, "SignColumn", { bg = gray_bg })
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = lighter_gray })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = lighter_gray })
-
-    -- TODO: figure out how to set the color of the floating neotree window
-    -- vim.api.nvim_set_hl(0, "NeoTreeFloatTitle", { bg = "#ffffff" })
+    local set_hl = vim.api.nvim_set_hl
+    set_hl(0, "Normal", { bg = gray_bg })
+    set_hl(0, "NormalNC", { bg = gray_bg })
+    set_hl(0, "EndOfBuffer", { bg = gray_bg })
+    set_hl(0, "SignColumn", { bg = gray_bg })
+    set_hl(0, "CursorLine", { bg = lighter_gray })
+    set_hl(0, "NormalFloat", { bg = lighter_gray })
   end,
 })
 
