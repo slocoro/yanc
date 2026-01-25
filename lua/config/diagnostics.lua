@@ -36,7 +36,7 @@ vim.keymap.set(
   "n",
   "<leader>td",
   toggle_virtual_text,
-  { noremap = true, silent = true, desc = "LSP [t]oggle [d]iagnostics" }
+  { noremap = true, silent = true, desc = "Toggle [t]ext [d]iagnostics" }
 )
 
 vim.keymap.set("n", "<leader>yd", function()
