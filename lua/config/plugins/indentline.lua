@@ -8,7 +8,7 @@ return {
       -- indent = { char = "|" },
       -- indent = { char = "⏐" },
       -- thinner vertical bad than default
-      indent = { char = "│" },
+      indent = { char = "┊" },
     },
   },
 }
