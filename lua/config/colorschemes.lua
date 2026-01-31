@@ -2,7 +2,28 @@
 -- the below autocommand runs after the colorscheme is set
 -- makes the background a bit lighter than in the theme
 
-local colorscheme = "default"
+local colorscheme = {
+  dark = "default",
+  light = "delek",
+}
+
+local is_dark = true
+
+local function apply_colorscheme()
+  vim.o.background = is_dark and "dark" or "light"
+  vim.cmd.colorscheme(colorscheme[is_dark and "dark" or "light"])
+end
+
+local function toggle_colorscheme()
+  is_dark = not is_dark
+  apply_colorscheme()
+end
+
+apply_colorscheme()
+
+vim.keymap.set("n", "<leader>tc", toggle_colorscheme, {
+  desc = "Toggle colorscheme",
+})
 
 -- use the below as an example to change different highlight groups to adjust existing colorscheme/theme
 -- vim.api.nvim_create_autocmd("ColorScheme", {
@@ -37,5 +58,3 @@ local colorscheme = "default"
 --     })
 --   end,
 -- })
-
-vim.cmd.colorscheme(colorscheme)
