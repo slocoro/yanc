@@ -20,3 +20,16 @@ k.set("n", "{", ":<C-u>execute 'keepjumps norm!' . v:count1 . '{'<CR>", { norema
 -- quick save
 k.set("n", "WW", "<cmd>w<cr>", { desc = "Save file" })
 k.set("n", "WQ", "<cmd>wq<cr>", { desc = "Save file and quit" })
+
+-- yank filename
+-- k.set("n", "yf", ":let @+ = expand('%')<CR>", { desc = "[y]ank [f]ile name relative to root", silent = true })
+k.set("n", "yp", function()
+  -- Get the absolute path
+  local path = vim.fn.expand("%:p")
+  -- Get the git root or current dir if not in git
+  local root = vim.loop.cwd()
+  -- This replaces the root part of the string with nothing, leaving the relative path
+  local relative = path:sub(#root + 2)
+  vim.fn.setreg("+", relative)
+  print("Yanked: " .. relative)
+end, { desc = "[y]ank [p]ath relative to Project Root" })
