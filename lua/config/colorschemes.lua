@@ -2,9 +2,81 @@
 -- the below autocommand runs after the colorscheme is set
 -- makes the background a bit lighter than in the theme
 
+require("catppuccin").setup({
+  flavour = "auto", -- latte, frappe, macchiato, mocha
+  background = { -- :h background
+    light = "latte",
+    dark = "mocha",
+  },
+  transparent_background = false, -- disables setting the background color.
+  float = {
+    transparent = false, -- enable transparent floating windows
+    solid = false, -- use solid styling for floating windows, see |winborder|
+  },
+  show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+  term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+  dim_inactive = {
+    enabled = false, -- dims the background color of inactive window
+    shade = "dark",
+    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+  },
+  no_italic = false, -- Force no italic
+  no_bold = false, -- Force no bold
+  no_underline = false, -- Force no underline
+  styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+    comments = { "italic" }, -- Change the style of comments
+    conditionals = { "italic" },
+    loops = {},
+    functions = {},
+    keywords = {},
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+    operators = {},
+    -- miscs = {}, -- Uncomment to turn off hard-coded styles
+  },
+  lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+    virtual_text = {
+      errors = { "italic" },
+      hints = { "italic" },
+      warnings = { "italic" },
+      information = { "italic" },
+      ok = { "italic" },
+    },
+    underlines = {
+      errors = { "underline" },
+      hints = { "underline" },
+      warnings = { "underline" },
+      information = { "underline" },
+      ok = { "underline" },
+    },
+    inlay_hints = {
+      background = true,
+    },
+  },
+  color_overrides = {},
+  custom_highlights = {},
+  default_integrations = true,
+  auto_integrations = false,
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    notify = false,
+    mini = {
+      enabled = true,
+      indentscope_color = "",
+    },
+    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+  },
+})
+
 local colorscheme = {
-  dark = "default",
-  light = "delek",
+  dark = "catppuccin-mocha",
+  light = "catppuccin-latte",
 }
 
 local is_dark = true
@@ -24,37 +96,3 @@ apply_colorscheme()
 vim.keymap.set("n", "<leader>tc", toggle_colorscheme, {
   desc = "Toggle colorscheme",
 })
-
--- use the below as an example to change different highlight groups to adjust existing colorscheme/theme
--- vim.api.nvim_create_autocmd("ColorScheme", {
---   pattern = colorscheme,
---   callback = function()
---     -- gray_bg is aligned with "backgroung" colour of Ghostty theme
---     local gray_bg = "#14161b"
---     local lighter_gray = "#23272f"
---
---     local set_hl = vim.api.nvim_set_hl
---
---     local gray_bg_hg_groups = {
---       "Normal",
---       "NormalNC",
---       "EndOfBuffer",
---     }
---     for _, hg_group in pairs(gray_bg_hg_groups) do
---       set_hl(0, hg_group, { bg = gray_bg })
---     end
---
---     local lighter_gray_hg_groups = {
---       "CursorLine",
---       "NormalFloat",
---     }
---     for _, hg_group in pairs(lighter_gray_hg_groups) do
---       set_hl(0, hg_group, { bg = lighter_gray })
---     end
---
---     set_hl(0, "VertSplit", {
---       fg = "#141414",
---       bg = "NONE",
---     })
---   end,
--- })
