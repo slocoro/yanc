@@ -1,1 +1,9 @@
 # Yet Another Neovim Config
+
+currently working with:
+```
+NVIM v0.11.6
+Build type: RelWithDebInfo
+LuaJIT 2.1.1741730670
+Run "nvim -V1 -v" for more info
+```
