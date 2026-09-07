@@ -1,5 +1,10 @@
 # Yet Another Neovim Config
 
+download config using:
+```
+git clone git@github.com:slocoro/yanc.git ~/.config/nvim
+```
+
 currently working with:
 ```
 NVIM v0.11.6
