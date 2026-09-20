@@ -56,14 +56,5 @@ return {
     --   end,
     --   desc = "Live grep glob",
     -- },
-    {
-      "<leader>go",
-      function()
-        require("fzf-lua").lsp_document_symbols({
-          -- regex_filter = symbols_filter,
-        })
-      end,
-      desc = "Goto Symbol",
-    },
   },
 }

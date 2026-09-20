@@ -21,6 +21,20 @@ vim.lsp.enable({
 -- vim.lsp.set_log_level(vim.log.levels.DEBUG)
 -- vim.lsp.log.set_format_func(vim.inspect)
 
+local symbol_attribute_kinds = {
+  Field = true,
+  Property = true,
+  Variable = true,
+}
+
+local function lsp_symbols_without_attributes()
+  require("fzf-lua").lsp_document_symbols({
+    regex_filter = function(item)
+      return not symbol_attribute_kinds[item.kind]
+    end,
+  })
+end
+
 -- define lsp related keymaps in here so that they are only available if lsp is attached
 vim.api.nvim_create_autocmd("LspAttach", {
   -- this autocommand runs after every LspAttach event inside Neovim
@@ -58,11 +72,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 
-    -- filter out specific symbols
-    -- https://github.com/ibhagwan/fzf-lua/issues/1517
-    vim.keymap.set("n", "go", function()
-      require("fzf-lua").lsp_document_symbols({ regex_filter = { "Variable", exclude = true } })
-    end, { desc = "View Document Symbols (outline)" })
+    vim.keymap.set(
+      "n",
+      "go",
+      require("fzf-lua").lsp_document_symbols,
+      vim.tbl_extend("force", bufopts, { desc = "View document symbols" })
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>go",
+      lsp_symbols_without_attributes,
+      vim.tbl_extend("force", bufopts, { desc = "View document symbols without attributes" })
+    )
 
     -- add border to signature help
     -- https://www.reddit.com/r/neovim/comments/1gdgz5x/customize_lsp_hover_window/
