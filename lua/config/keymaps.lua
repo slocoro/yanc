@@ -22,7 +22,12 @@ k.set("n", "WW", "<cmd>w<cr>", { desc = "Save file" })
 k.set("n", "WQ", "<cmd>wq<cr>", { desc = "Save file and quit" })
 
 -- yank filename
--- k.set("n", "yf", ":let @+ = expand('%')<CR>", { desc = "[y]ank [f]ile name relative to root", silent = true })
+k.set("n", "yf", ":let @+ = expand('%')<CR>", { desc = "[y]ank [f]ile name relative to root", silent = true })
+k.set("n", "yl", function()
+  local location = string.format("%s:%d", vim.fn.expand("%"), vim.fn.line("."))
+  vim.fn.setreg("+", location)
+  print("Yanked: " .. location)
+end, { desc = "[y]ank file path and [l]ine number" })
 k.set("n", "yp", function()
   -- Get the absolute path
   local path = vim.fn.expand("%:p")
