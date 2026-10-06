@@ -14,7 +14,7 @@ vim.lsp.enable({
   "pyrefly",
   "sqlls",
   "terraformls",
-  "ts_ls",
+  "vtsls",
 })
 
 -- for debugging
