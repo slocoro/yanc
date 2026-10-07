@@ -15,6 +15,7 @@ vim.lsp.enable({
   "sqlls",
   "terraformls",
   "vtsls",
+  "yamlls",
 })
 
 -- for debugging

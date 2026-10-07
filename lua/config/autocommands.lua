@@ -12,9 +12,10 @@ vim.api.nvim_create_autocmd("CursorHold", {
   pattern = "*",
   callback = function()
     local exclude_ft = {
+      ["sql"] = true,
       ["terraform"] = true,
       ["terraform-vars"] = true,
-      ["sql"] = true,
+      ["yaml"] = true,
     }
     if exclude_ft[vim.bo.filetype] then
       return
